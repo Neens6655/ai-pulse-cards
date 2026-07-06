@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#f1e3c1" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f1e3c1'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23C9A84C'/%3E%3C/svg%3E" />
+<title>AI Pulse — June 2026 · Swipe the month</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Serif:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F2E8D5; --paper:#FFFDF7; --panel:#F4ECD9;
+    --ink:#1C1C1C; --body:#33312a; --muted:#5A5A52;
+    --gold:#C9A84C; --gold-ink:#8A6D24; --gold-tt:#6E591C;
+    --catch-bg:#FBF3DF; --why-bg:#EFEDE4; --hair:#CFC2A4;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; background:var(--cream); font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif; overflow:hidden; color:var(--body); }
+  .mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+
+  /* ══ PAPYRUS BACKGROUND SYSTEM (verbatim) ══ */
+  :root{ --hub-bg:#f1e3c1; --hub-bg-deep:#e9d5a8; --hub-bg-card:#f4e9cb; --hub-bg-c:#ede2ce; --hub-fg:#2e2317; --hub-fg-muted:#5a3e24; --hub-primary:#b51b0b; --color-background:#f1e3c1; }
+  html,body{ background:#f1e3c1; }
+  [data-surface="ps"]{ background:var(--hub-bg); min-height:100vh; color:var(--hub-fg); position:relative; overflow-x:hidden; }
+  [data-surface="ps"] .paper-vignette,[data-surface="ps"] .paper-stains,[data-surface="ps"] .paper-grain,
+  [data-surface="ps"] .paper-fiber,[data-surface="ps"] .paper-fold,[data-surface="ps"] .deckle{ position:fixed; inset:0; pointer-events:none; }
+  [data-surface="ps"] .paper-vignette{ z-index:0; background:
+    radial-gradient(at 25% 15%, #fff5d299 0%, #0000 45%),
+    radial-gradient(at 80% 85%, #6e4b2847 0%, #0000 55%),
+    radial-gradient(#0000 40%, #4a331e38 100%); }
+  [data-surface="ps"] .paper-stains{ z-index:1; background-image:
+    radial-gradient(80px 60px at 15% 30%, #6e4b281a 0%, #0000 70%),
+    radial-gradient(120px 90px at 82% 22%, #4a331e14 0%, #0000 70%),
+    radial-gradient(90px 70px at 68% 70%, #6e4b2817 0%, #0000 72%),
+    radial-gradient(50px 40px at 35% 85%, #6e4b281c 0%, #0000 72%),
+    radial-gradient(8px at 22% 55%, #4a331e59 0%, #0000 60%),
+    radial-gradient(5px at 70% 45%, #4a331e47 0%, #0000 60%),
+    radial-gradient(6px at 88% 65%, #4a331e4d 0%, #0000 60%),
+    radial-gradient(4px at 12% 80%, #4a331e40 0%, #0000 60%); }
+  [data-surface="ps"] .paper-grain{ z-index:2; opacity:.72; mix-blend-mode:multiply; width:100%; height:100%;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/></filter><rect width='120' height='120' filter='url(%23n)' opacity='0.5'/></svg>"); }
+  [data-surface="ps"] .paper-fiber{ z-index:2; opacity:.38; mix-blend-mode:multiply; background-image:
+    repeating-linear-gradient(90deg,  #0000 0 2.6px, #4a331e12 2.6px 3px, #0000 3px 5.8px),
+    repeating-linear-gradient(3deg,   #0000 0 5px,   #6e4b280d 5px 5.4px, #0000 5.4px 11px),
+    repeating-linear-gradient(178deg, #0000 0 9px,   #4a331e0a 9px 9.3px, #0000 9.3px 18px); }
+  [data-surface="ps"] .paper-fold{ z-index:2; opacity:.35; background:
+    linear-gradient(#0000 30%, #6e4b280f 30.1%, #0000 30.4%),
+    linear-gradient(#0000 68%, #6e4b280d 68.1%, #0000 68.4%); }
+  [data-surface="ps"] .deckle{ z-index:3; background:
+    linear-gradient(to right,  var(--hub-bg-deep) 0%, transparent 2%, transparent 98%, var(--hub-bg-deep) 100%),
+    linear-gradient(to bottom, var(--hub-bg-deep) 0%, transparent 2%, transparent 98%, var(--hub-bg-deep) 100%);
+    -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' seed='4'/><feDisplacementMap in='SourceGraphic' scale='3'/></filter><rect x='0' y='0' width='100' height='100' fill='black' filter='url(%23r)'/></svg>");
+    mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' seed='4'/><feDisplacementMap in='SourceGraphic' scale='3'/></filter><rect x='0' y='0' width='100' height='100' fill='black' filter='url(%23r)'/></svg>"); }
+  [data-surface="ps"] .ps-content{ z-index:4; position:relative; }
+  /* keep grain on mobile (it IS the texture); only drop the faint fold crease */
+  @media (max-width:640px){ [data-surface="ps"] .paper-fold{ display:none; } }
+
+  /* horizontal card rail */
+  .deck{ display:flex; height:calc(100vh - 46px); height:calc(100dvh - 46px); width:100vw; overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .deck::-webkit-scrollbar{ display:none; }
+
+  /* each slide: full width, own vertical scroll so rich cards never clip */
+  .slide{ min-width:100vw; width:100vw; height:calc(100vh - 46px); height:calc(100dvh - 46px); scroll-snap-align:center; scroll-snap-stop:always;
+    overflow-y:auto; overflow-x:hidden; scrollbar-width:none; }
+  .slide::-webkit-scrollbar{ display:none; }
+  .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:44px 16px 28px; }
+
+  /* the CARD — a contained slide floating on cream */
+  .card{ width:100%; max-width:480px; background-color:var(--paper); border:2px solid var(--ink);
+    box-shadow:7px 7px 0 rgba(28,28,28,0.10); padding:22px 22px 20px;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='pp'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23pp)' opacity='0.035'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(0deg, rgba(28,28,28,0.012) 0 1px, transparent 1px 4px); }
+
+  /* header */
+  .top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .chip{ font-size:9.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);
+    background:var(--gold); padding:5px 10px; }
+  .count{ display:none; }
+
+  /* hero */
+  .hero{ width:100%; height:194px; object-fit:cover; display:block; border:2px solid var(--ink); background:var(--panel); margin-bottom:16px; }
+  .hero.band{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    background:linear-gradient(145deg,#E3C25E,#8A6D24); }
+  .hero.band .bw{ font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:700; letter-spacing:0.04em; color:#fff; text-shadow:1px 1px 0 rgba(0,0,0,.28); }
+  .hero.band .bl{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,.9); }
+
+  /* inline video (click-to-play facade — no autoload, mobile-friendly) */
+  .play{ position:relative; cursor:pointer; margin-bottom:16px; border:2px solid var(--ink); background:#111; overflow:hidden; }
+  .play img{ width:100%; height:194px; object-fit:cover; display:block; opacity:.92; }
+  .play .pbtn{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:56px; height:56px; border-radius:50%;
+    background:rgba(201,168,76,0.95); border:2px solid #fff; display:flex; align-items:center; justify-content:center; }
+  .play .pbtn:after{ content:""; margin-left:4px; border-style:solid; border-width:11px 0 11px 18px; border-color:transparent transparent transparent #1C1C1C; }
+  .play .tag{ position:absolute; left:0; bottom:0; font-family:'IBM Plex Mono',monospace; font-size:9px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#fff; background:rgba(28,28,28,0.82); padding:5px 9px; }
+  .play iframe{ width:100%; height:210px; border:0; display:block; }
+
+  /* 30-sec audio brief bar */
+  .abar{ display:flex; align-items:center; gap:11px; margin-bottom:16px; padding:9px 11px; border:2px solid var(--ink); background:var(--panel); }
+  .aplay{ flex-shrink:0; width:40px; height:40px; border-radius:50%; border:2px solid var(--ink); background:var(--gold); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; }
+  .aplay .ic{ display:block; margin-left:3px; width:0; height:0; border-style:solid; border-width:8px 0 8px 13px; border-color:transparent transparent transparent #1C1C1C; }
+  .aplay.playing .ic{ margin-left:0; width:12px; height:14px; border:0; border-left:4px solid #1C1C1C; border-right:4px solid #1C1C1C; }
+  .aplay.loading .ic{ animation:apulse .8s ease-in-out infinite; }
+  @keyframes apulse{ 0%,100%{opacity:.4;} 50%{opacity:1;} }
+  .ainfo{ flex:1; min-width:0; display:flex; flex-direction:column; gap:1px; }
+  .atitle{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); }
+  .asub{ font-size:10.5px; line-height:1.3; color:var(--muted); }
+  .alang{ flex-shrink:0; display:flex; border:1.5px solid var(--ink); overflow:hidden; }
+  .lg{ font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; min-width:40px; padding:7px 5px; background:transparent; border:0; cursor:pointer; color:var(--muted); line-height:1; text-align:center; display:flex; align-items:center; justify-content:center; transition:background .18s ease, color .18s ease; }
+  .lg.on{ background:var(--ink); color:var(--paper); }
+  .lg + .lg{ border-left:1.5px solid var(--ink); }
+  @media (prefers-reduced-motion: reduce){ .aplay.loading .ic{ animation:none; } }
+
+  /* headline + standfirst — bigger, clearer */
+  .h{ font-family:'IBM Plex Serif',Georgia,serif; font-size:27px; font-weight:700; line-height:1.16; letter-spacing:-0.015em; color:var(--ink); margin-bottom:12px; }
+  .dek{ font-size:16px; line-height:1.62; color:var(--body); margin-bottom:16px; }
+  .dek b{ color:var(--ink); font-weight:600; }
+  mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
+
+  /* the two explanatory boxes */
+  .lab{ display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:5px; }
+  .catch{ padding:13px 15px; background:var(--catch-bg); border-left:4px solid var(--gold); margin-bottom:11px; }
+  .catch .lab{ color:var(--gold-tt); }
+  .catch .t{ font-size:15.5px; line-height:1.5; color:var(--ink); font-weight:500; }
+  .why{ padding:13px 15px; background:var(--why-bg); border-left:4px solid var(--ink); margin-bottom:18px; }
+  .why .lab{ color:var(--ink); }
+  .why .t{ font-size:15px; line-height:1.5; color:var(--body); }
+
+  /* read source button */
+  .read{ display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--gold-tt); text-decoration:none; border:2px solid var(--gold); padding:11px 16px; }
+  .read:before{ content:"Read \2192\00A0\00A0"; color:var(--ink); }
+  .read.alt{ margin-left:8px; }
+  .read.alt:before{ content:"Watch \2192\00A0\00A0"; }
+
+  .reads{ display:flex; flex-wrap:wrap; gap:9px; }
+
+  /* editor's-analysis policy rows */
+  .pol{ border:2px solid var(--ink); padding:4px 14px; margin-bottom:16px; background:var(--cream); }
+  .polrow{ display:flex; gap:12px; padding:11px 0; border-bottom:1px solid var(--hair); }
+  .polrow:last-child{ border-bottom:none; }
+  .polflag{ flex-shrink:0; font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.05em; color:#fff; background:var(--ink); padding:3px 0; width:34px; height:fit-content; text-align:center; }
+  .poltext{ font-size:14px; line-height:1.42; color:var(--body); }
+  .poltext b{ color:var(--ink); font-weight:600; }
+
+  /* footer inside card */
+  .foot{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:18px; padding-top:12px; border-top:1px solid var(--hair); }
+  .share{ display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); background:#fff; border:1.5px solid var(--ink); padding:6px 9px; cursor:pointer; text-decoration:none; }
+  .share svg{ width:14px; height:14px; }
+  .brand{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:0.14em; color:var(--muted); }
+  .swipe{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-tt); animation:nudge 1.5s ease-in-out infinite; }
+  @keyframes nudge{ 0%,100%{transform:translateX(0);opacity:.7;} 50%{transform:translateX(5px);opacity:1;} }
+
+  /* numbers card */
+  .numgrid{ border:2px solid var(--ink); border-bottom:none; }
+  .numrow{ display:block; text-decoration:none; color:inherit; padding:14px 16px; border-bottom:2px solid var(--ink); }
+  .numrow .fig{ font-family:'IBM Plex Serif',serif; font-size:30px; font-weight:700; letter-spacing:-0.02em; color:var(--gold-ink); line-height:1; }
+  .numrow .nl{ font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin:7px 0 3px; }
+  .numrow .nt{ font-size:14px; line-height:1.4; color:var(--body); }
+
+  /* cover + close — cream, gold grid, NO black */
+  .cover .card, .close .card{ background:var(--paper); }
+  .mast{ background:var(--panel);
+    background-image:repeating-linear-gradient(90deg, rgba(201,168,76,0.22) 0 1px, transparent 1px 30px),
+                     repeating-linear-gradient(0deg, rgba(201,168,76,0.20) 0 1px, transparent 1px 30px);
+    border:2px solid var(--ink); padding:34px 24px 30px; text-align:center; }
+  .mast .eye{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:14px; }
+  .mast .word{ font-family:'IBM Plex Serif',serif; font-size:62px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); line-height:0.95; }
+  .mast .word b{ color:var(--gold-ink); }
+  .mast .iss{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:16px; }
+  .mast .sub{ font-family:'IBM Plex Serif',serif; font-style:italic; font-size:16px; color:var(--body); margin-top:14px; line-height:1.5; }
+  .go{ position:relative; overflow:hidden; display:block; text-align:center; margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:15px; text-decoration:none; border:2px solid var(--ink); box-shadow:4px 4px 0 rgba(28,28,28,0.18); transition:transform .14s ease, box-shadow .14s ease; }
+  .go:hover{ transform:translate(-1px,-1px); box-shadow:6px 6px 0 rgba(28,28,28,0.24); }
+  .go:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(28,28,28,0.18); }
+  .go .ga{ display:inline-block; margin-left:9px; animation:goarrow 1.2s ease-in-out infinite; }
+  .go:before{ content:""; position:absolute; top:0; left:-45%; width:32%; height:100%; background:linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent); transform:skewX(-18deg); animation:gosheen 2.8s ease-in-out infinite; pointer-events:none; }
+  @keyframes goarrow{ 0%,100%{transform:translateX(0);} 50%{transform:translateX(6px);} }
+  @keyframes gosheen{ 0%{left:-45%;} 55%,100%{left:130%;} }
+
+  /* cover table-of-contents mini-cards */
+  .tocgrid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
+  .tocx{ display:flex; align-items:center; gap:11px; padding:9px 11px; background:var(--panel); border:2px solid var(--ink); box-shadow:3px 3px 0 rgba(28,28,28,0.16); cursor:pointer; text-align:left; transition:transform .12s ease, box-shadow .12s ease, background .15s ease; }
+  .tocx:hover{ background:var(--gold); transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(28,28,28,0.26); }
+  .tocx:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(28,28,28,0.16); }
+  .tocx .rn{ flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; color:var(--paper); background:var(--ink); box-shadow:2px 2px 0 var(--gold); }
+  .tocx:hover .rn{ background:var(--paper); color:var(--ink); box-shadow:2px 2px 0 var(--ink); }
+  .tocx .rl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink); line-height:1.25; }
+  @media (prefers-reduced-motion: reduce){ .go .ga,.go:before,.tocx{ animation:none; transition:none; } }
+
+  .close .kick{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:12px; }
+  .close .lw{ font-family:'IBM Plex Serif',serif; font-size:17px; line-height:1.6; color:var(--ink); margin-bottom:8px; }
+  .close .lw b{ color:var(--gold-ink); font-weight:600; }
+  .btns{ margin-top:20px; display:flex; flex-direction:column; gap:11px; }
+  .btns a{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; text-align:center; padding:14px; border:2px solid var(--gold); color:var(--gold-tt); }
+  .btns a.solid{ background:var(--gold); color:var(--ink); border-color:var(--ink); }
+
+  /* HUD progress + dot nav */
+  .hud{ position:fixed; top:0; left:0; right:0; z-index:9; display:flex; gap:3px; padding:8px 12px; pointer-events:none; }
+  .bar{ flex:1; height:3px; background:var(--hair); transition:background .2s ease; }
+  .bar.done{ background:var(--gold-ink); }
+  .dots{ position:fixed; left:0; right:0; bottom:0; z-index:9; height:46px; display:flex; justify-content:center; align-items:center; gap:6px; flex-wrap:nowrap; padding:0 20px;
+    background:var(--hub-bg); border-top:1px solid var(--hub-bg-deep); }
+  .dot{ width:7px; height:7px; border:1.5px solid var(--gold-ink); background:transparent; padding:0; cursor:pointer; transition:background .2s ease; }
+  .dot.on{ background:var(--gold-ink); }
+
+  /* small prev/next arrows pinned to the CARD's left & right edges (matches card width at any screen) */
+  .navwrap{ position:fixed; top:0; bottom:46px; left:16px; right:16px; margin-left:auto; margin-right:auto; max-width:480px; z-index:8; pointer-events:none; }
+  .nav{ position:absolute; top:50%; width:30px; height:30px; border-radius:50%;
+    border:1.5px solid var(--gold-ink); background:rgba(255,253,247,0.82); backdrop-filter:blur(1px);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; pointer-events:auto; }
+  .nav svg{ width:13px; height:13px; stroke:var(--gold-ink); fill:none; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; }
+  .nav.prev{ left:0; transform:translate(-50%,-50%); }
+  .nav.next{ right:0; transform:translate(50%,-50%); }
+  .nav[hidden]{ display:none; }
+  @media (hover:hover){ .nav:hover{ background:var(--gold); border-color:var(--ink); } }
+
+  /* expand-in-place: read the full story without leaving */
+  .more{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin-top:14px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--gold-tt); background:var(--panel); border:2px solid var(--gold); padding:12px 15px; cursor:pointer; }
+  .more .cx{ display:inline-block; transition:transform .22s ease; font-size:13px; }
+  .more.open .cx{ transform:rotate(180deg); }
+  .full{ display:none; margin-top:14px; padding:15px 15px 4px; background:var(--paper); border:2px solid var(--hair); border-top:3px solid var(--gold); }
+  .full.open{ display:block; animation:fullin .25s ease; }
+  @keyframes fullin{ from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:none;} }
+  .full h4{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:11px; }
+  .full p{ font-size:15.5px; line-height:1.7; color:var(--body); margin-bottom:13px; }
+  .full p b{ color:var(--ink); font-weight:600; }
+  @media (prefers-reduced-motion: reduce){ .more .cx{ transition:none; } .full.open{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){ .bar,.dot,.swipe{ transition:none; animation:none; } }
+  @media (max-width:380px){ .h{ font-size:24px; } .mast .word{ font-size:52px; } }
+</style>
+</head>
+<body>
+<div data-surface="ps">
+<div class="paper-vignette"></div>
+<div class="paper-stains"></div>
+<div class="paper-grain"></div>
+<div class="paper-fiber"></div>
+<div class="paper-fold"></div>
+<div class="deckle"></div>
+<div class="ps-content">
+<div class="hud" id="hud"></div>
+
+<div class="deck" id="deck">
+
+  <!-- COVER -->
+  <section class="slide cover"><div class="wrap"><div class="card">
+    <div class="mast">
+      <div class="eye">The Monthly AI Briefing</div>
+      <div class="word">AI&nbsp;<b>PULSE</b></div>
+      <div class="iss">June 2026 &middot; Issue 03</div>
+      <div class="sub">The month in AI — nineteen cards.<br />Every one links to its source.</div>
+    </div>
+
+    <div class="abar" id="fullbar" data-lang="en">
+      <button class="aplay" type="button" aria-label="Play the full briefing"><span class="ic"></span></button>
+      <div class="ainfo"><span class="atitle">▶ The full briefing</span><span class="asub">All nineteen stories, one continuous listen</span></div>
+      <div class="alang"><button class="lg on" type="button" data-l="en">EN</button><button class="lg" type="button" data-l="ar">ع</button></div>
+    </div>
+
+    <div class="tocgrid" id="tocgrid"></div>
+
+    <a class="go" href="#" onclick="deck.scrollTo({left:innerWidth,behavior:'smooth'});return false;"><span class="gt">Swipe to begin</span><span class="ga">→</span></a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 1 CHIP DIPLOMACY -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Chip Diplomacy · Gulf</span><span class="count mono">01 / 15</span></div>
+    <img class="hero" src="https://media.datacenterdynamics.com/media/images/Peng_Xiao_G42.2e16d0ba.fill-1200x630.jpg" alt="G42 CEO Peng Xiao" />
+    <h2 class="h">Washington clears its top AI chips for the Gulf</h2>
+    <p class="dek">The US approved up to <b>35,000</b> of Nvidia's best GB300 chips for Abu Dhabi's G42 — <mark>the only non-allied state cleared</mark>. First shipments land within months, powering an initial 200MW of a planned Stargate cluster.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">Compute is now foreign policy — and the Gulf holds the keys.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">The same clearance pulls the UAE into Washington's technology bloc, and squarely against China's.</span></div>
+    <a class="read" href="https://www.datacenterdynamics.com/en/news/g42-ceo-says-company-will-receive-first-ai-chip-shipments-within-months-to-support-initial-200mw-of-capacity-for-planned-stargate-cluster/" target="_blank" rel="noopener">Data Center Dynamics</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 2 WALL STREET -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Wall Street · US</span><span class="count mono">02 / 15</span></div>
+    <img class="hero" src="https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68309ab48369f7ad9b4a40e1_open-graph.jpg" alt="Anthropic" />
+    <h2 class="h">Anthropic files for a record IPO</h2>
+    <p class="dek">Anthropic confidentially filed to go public after a round valued it near <b>$965 billion</b> — <mark>overtaking OpenAI</mark> — even as it tracks its first operating profit.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">The most valuable AI lab is about to answer to public shareholders.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Private AI's sky-high valuations are about to face their first public-market test.</span></div>
+    <a class="read" href="https://www.cnbc.com/2026/04/15/public-opinion-ai-data-centers-anthropic-openai-ipo.html" target="_blank" rel="noopener">CNBC</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 3 TALENT -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Talent · US</span><span class="count mono">03 / 15</span></div>
+    <img class="hero" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_7_%28cropped%29.jpg/960px-Demis_Hassabis%2C_2024_Nobel_Prize_Laureate_in_Chemistry_7_%28cropped%29.jpg" alt="Google DeepMind" />
+    <h2 class="h">Google's AI brain trust walks out to rivals</h2>
+    <p class="dek">In one week several of Google's most important researchers — <mark>including a Nobel laureate</mark> — left for Anthropic and OpenAI, knocking about <b>$270 billion</b> off its parent.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">The race for AI has become a race for a few hundred people.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Moats made of talent evaporate in a week — only compute and data compound.</span></div>
+    <a class="read" href="https://www.bloomberg.com/news/articles/2026-06-24/google-poised-to-lose-two-more-high-profile-ai-staffers-to-anthropic" target="_blank" rel="noopener">Bloomberg</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 4 REDMOND -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Redmond · US</span><span class="count mono">04 / 15</span></div>
+    <img class="hero" src="https://image.cnbcfm.com/api/v1/image/108315345-1780420463743-Screenshot_2026-06-02_at_11333_PM.png?v=1780420570&w=1920&h=1080" alt="Microsoft AI models" />
+    <h2 class="h">Microsoft builds its own frontier models</h2>
+    <p class="dek">At Build, Microsoft unveiled <b>reasoning and coding models</b> trained from scratch — <mark>a hedge against its closest partner, OpenAI</mark> — and a way to cut costs.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">Even OpenAI's closest partner is hedging; owning the model is table stakes.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Microsoft owning part of the frontier reshapes the whole market.</span></div>
+    <a class="read" href="https://www.cnbc.com/2026/06/02/microsoft-unveils-new-ai-models-lessen-reliance-on-openai-lower-costs.html" target="_blank" rel="noopener">CNBC</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 5 MICHIGAN -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Michigan · US</span><span class="count mono">05 / 15</span></div>
+    <img class="hero" src="https://image.cnbcfm.com/api/v1/image/108272501-1772510587771-gettyimages-2236544097-STARGATE_DATA_CENTER.jpeg?v=1776967998&w=1920&h=1080" alt="Stargate data center Michigan" />
+    <h2 class="h">OpenAI's $16bn Stargate data center rises in Michigan</h2>
+    <p class="dek">Oracle and OpenAI are building a vast campus in Saline — <mark>the AI build-out made concrete</mark> in land, power and megawatts.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">The bottleneck has shifted from chips to electricity.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Power now decides who can scale — and it's reshaping American towns.</span></div>
+    <a class="read" href="https://www.cnbc.com/2026/06/01/stargate-project-michigan-live-updates.html" target="_blank" rel="noopener">CNBC</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 6 CODING WAR -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Coding War · US</span><span class="count mono">06 / 15</span></div>
+    <img class="hero" src="https://image.cnbcfm.com/api/v1/image/108314167-1780095631300-gettyimages-2262969404-20090101260225-99-646956.jpeg?v=1780095752&w=1920&h=1080" alt="AI coding" />
+    <h2 class="h">The battle to own AI coding breaks open</h2>
+    <p class="dek">With Anthropic's Claude Code far ahead, <mark>Microsoft, Google and OpenAI race to catch up</mark> — coding is the first runaway enterprise use of AI.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">Whoever owns the coding model owns the deepest enterprise foothold.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">The first place AI is truly paying for itself is the developer's terminal.</span></div>
+    <a class="read" href="https://www.cnbc.com/2026/06/01/microsoft-and-google-take-on-anthropic-and-openai-in-ai-coding-models.html" target="_blank" rel="noopener">CNBC</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- STARTUP OF THE WEEK · ETCHED -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Startup of the Week · Hardware</span><span class="count mono">07 / 15</span></div>
+    <img class="hero" src="https://cdn.sanity.io/images/rwbees58/development/9885cd08fc6fe49fff1d2b35a8f97447753ca9b0-1200x630.png?w=1200&h=630&fm=png&fit=max&auto=format" alt="Etched AI hardware" />
+    <h2 class="h">A $5B startup emerges from stealth with a new class of AI hardware</h2>
+    <p class="dek"><b>Etched</b> is launching frontier inference clusters — <mark>state-of-the-art chips, racks and software</mark>, all designed to run today's AI models faster and more efficiently. Shipping starts this summer, just as AI demand leaves chips, memory and power providers straining to keep up.</p>
+    <div class="catch"><span class="lab">The unique bet</span><span class="t">A full-stack play on inference — chip, rack <em>and</em> software — not another training-chip challenger.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">If inference is where AI actually pays, purpose-built inference silicon is the pick-and-shovel trade of the cycle.</span></div>
+    <div class="reads">
+      <a class="read" href="https://www.etched.com/" target="_blank" rel="noopener">Etched</a>
+      <a class="read" href="https://x.com/Etched" target="_blank" rel="noopener">Announcement · 5M</a>
+    </div>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 7 CHINA -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">New Rulebooks · Beijing</span><span class="count mono">07 / 15</span></div>
+    <img class="hero" src="https://substackcdn.com/image/fetch/$s_!w5X7!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8b3904f6-3d24-4f9c-afcd-a5ae21e3ae33_2940x1686.jpeg" alt="China AI" />
+    <h2 class="h">China's open models pull ahead</h2>
+    <p class="dek">Chinese open-weight models now lead adoption — by mid-2026 they were <b>~61%</b> of tokens on the largest neutral router, with <mark>five of June's top-ten trending models</mark>, led by Alibaba's Qwen.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">Open weights are China's end-run around chip controls.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">China's open-source bet is buying global reach despite export bans.</span></div>
+    <a class="read" href="https://www.cnbc.com/2026/01/28/chinese-tech-companies-accelerate-ai-model-rollouts-us-rivals-deepseek-moonshot-kimi.html" target="_blank" rel="noopener">CNBC</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 8 INDIA -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">New Rulebooks · New Delhi</span><span class="count mono">08 / 15</span></div>
+    <img class="hero" src="https://blogs.nvidia.com/wp-content/uploads/2026/02/ai-infra-corp-blog-india-impact-summit-2026-1280x680-1.png" alt="India AI infrastructure" />
+    <h2 class="h">India scales public compute for AI</h2>
+    <p class="dek">The IndiaAI Mission now runs <b>~34,000</b> subsidised GPUs at about ₹65 a GPU-hour, heading for <mark>100,000 by December</mark>, with Tata and OpenAI building gigawatt-scale data centres.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">India is buying its way to AI independence with public money.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">A state-funded compute grid is a new template for the Global South.</span></div>
+    <a class="read" href="https://www.digitalindia.gov.in/press_release/indiaai-mission-expands-ai-ecosystem-with-affordable-compute-and-startup-support/" target="_blank" rel="noopener">Digital India</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 9 BRUSSELS -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">New Rulebooks · Brussels</span><span class="count mono">09 / 15</span></div>
+    <img class="hero" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/1280px-Flag_of_Europe.svg.png" alt="European Union" />
+    <h2 class="h">Brussels sets the rules for AI-made content</h2>
+    <p class="dek">On 10 June the Commission published its Code of Practice on labelling AI-generated content and backed a European open-source model in all 24 languages — weeks before the AI Act's first hard rules bite on <mark><b>August 2</b></mark>.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">The world's first hard AI rulebook is now weeks from force.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Every model sold into Europe is about to inherit a compliance bill.</span></div>
+    <a class="read" href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">European Commission</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- EDITOR'S ANALYSIS · POLICY SYNTHESIS -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Editor's Analysis · Policy</span><span class="count mono">10 / 15</span></div>
+    <img class="hero" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/2025_G20_Johannesburg_summit_Family_Photo.jpg/1280px-2025_G20_Johannesburg_summit_Family_Photo.jpg" alt="AI policy" />
+    <h2 class="h">Four capitals, four playbooks for AI</h2>
+    <p class="dek">June's rulebooks weren't one race — they were <mark>four different bets</mark>. Each bloc governs AI through the one lever it already holds. The executive read:</p>
+    <div class="pol">
+      <div class="polrow"><span class="polflag">US</span><span class="poltext"><b>Govern by leverage.</b> Chip-export deals and executive orders — no broad federal law. Market-led, control at the border.</span></div>
+      <div class="polrow"><span class="polflag">CN</span><span class="poltext"><b>Openness as industrial policy.</b> Give the models away as open weights to win global reach past the chip bans.</span></div>
+      <div class="polrow"><span class="polflag">IN</span><span class="poltext"><b>Compute as a public utility.</b> State-subsidised GPUs for cheap access — buy your way to independence.</span></div>
+      <div class="polrow"><span class="polflag">EU</span><span class="poltext"><b>One hard law.</b> The AI Act — rights-first, horizontal, compliance biting from Aug 2.</span></div>
+    </div>
+    <div class="catch"><span class="lab">The synthesis</span><span class="t">The real axis isn't fast-vs-slow — it's <b>control vs. diffusion</b>. The US and EU tighten (export control, regulation); China and India diffuse (open weights, cheap compute).</span></div>
+    <div class="why"><span class="lab">The Gulf read</span><span class="t">You can buy compute like India and attract models like China — but the moment you sell abroad you inherit America's controls and Europe's compliance. The edge goes to whoever <b>deploys fastest inside that box</b>.</span></div>
+    <div class="reads">
+      <a class="read" href="https://www.brookings.edu/articles/from-governance-to-execution-in-federal-ai-policy/" target="_blank" rel="noopener">Brookings</a>
+      <a class="read" href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">EU AI Act</a>
+    </div>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 10 HOSPITALS -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Human Stories · Healthcare</span><span class="count mono">10 / 15</span></div>
+    <img class="hero" src="https://www.aha.org/sites/default/files/2026-05/4-Health-Systems-Transforming-Care-with-AI.png" alt="Health systems and AI" />
+    <h2 class="h">US hospitals start to show a return on AI</h2>
+    <p class="dek">In a June survey, <b>70%</b> of health organisations had deployed AI, and most that could measure it saw <mark>at least a 2x return</mark>; Advocate Health expects earlier diagnoses for tens of thousands of patients a year.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">AI in medicine is moving from pilots to measurable patient impact.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">The clearest AI returns are showing up far from the model labs.</span></div>
+    <a class="read" href="https://blogs.nvidia.com/blog/ai-in-healthcare-survey-2026/" target="_blank" rel="noopener">Industry survey</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 11 JAKARTA -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Human Stories · Jakarta</span><span class="count mono">11 / 15</span></div>
+    <img class="hero" src="https://scwcontent.affino.com/AcuCustom/Sitename/DAM/057/Urban_traffic_concept_image1.jpg" alt="Jakarta flood management" />
+    <h2 class="h">An Asian megacity uses AI to stay ahead of floods</h2>
+    <p class="dek">Flood-prone Jakarta now forecasts where water will rise <b>up to six hours early</b>, opening gates and warning residents through an app, processing thousands of sensor readings in real time.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">AI is shifting from chat to keeping people safe.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Climate resilience may be AI's most underrated public-service use.</span></div>
+    <a class="read" href="https://www.smartcitiesworld.net/ai-and-machine-learning/how-ai-will-define-cities-and-mobility-in-2026" target="_blank" rel="noopener">Smart Cities World</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 12 ESTONIA -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Human Stories · Tallinn</span><span class="count mono">12 / 15</span></div>
+    <img class="hero" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Raekoja_plats_at_night.jpg/1280px-Raekoja_plats_at_night.jpg" alt="Tallinn, Estonia" />
+    <h2 class="h">Estonia gives every teenager an AI tutor</h2>
+    <p class="dek">Estonia is putting a custom AI tutor — built with OpenAI to <mark>ask questions, not give answers</mark> — into <b>every high school</b>, teachers trained alongside it. National from day one, with the explicit goal of teaching students to think <em>with</em> AI, not outsource their thinking to it.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">A country of 1.4 million just made AI tutoring a public service.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">A model a Gulf ministry with larger resources could replicate within a single academic year.</span></div>
+    <a class="read" href="https://openai.com/index/estonia-schools-and-chatgpt/" target="_blank" rel="noopener">OpenAI</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 13 JORDAN -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Human Stories · Amman</span><span class="count mono">13 / 15</span></div>
+    <img class="hero" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/New_Abdali_2024.png/1280px-New_Abdali_2024.png" alt="Amman, Jordan" />
+    <h2 class="h">AI tutoring reaches a million students in Jordan</h2>
+    <p class="dek">Through OpenAI's national schools program, more than <b>a million</b> students in Jordan now learn with an AI tutor — <mark>built for scale, not a pilot</mark>.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">The Global South is adopting classroom AI faster than the West debates it.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">National-scale deployment, not lab benchmarks, is where adoption is being decided.</span></div>
+    <a class="read" href="https://openai.com/index/introducing-openai-for-countries/" target="_blank" rel="noopener">OpenAI</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 14 FRONTIER -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Spotlight · Frontier</span><span class="count mono">14 / 15</span></div>
+    <div class="play" data-yt="wSp6AiNIrsY"><img src="https://i.ytimg.com/vi/wSp6AiNIrsY/hqdefault.jpg" alt="NVIDIA Cosmos 3 keynote" /><span class="pbtn"></span><span class="tag">▶ NVIDIA · GTC Taipei keynote</span></div>
+    <h2 class="h">AI just stepped off the screen</h2>
+    <p class="dek">At GTC Taipei, NVIDIA's <b>Cosmos 3</b> fused vision, reasoning and action into a single world model — <mark>plus a reference humanoid robot to run it</mark>. The quiet turn from chatbots to machines that act in the physical world.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">The question shifts from "can it think?" to "can it act?"</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Robotics is the next battleground — and it just got its foundation model.</span></div>
+    <a class="read" href="https://www.axios.com/2026/06/01/nvidia-ai-push-cosmos-3-world-model" target="_blank" rel="noopener">Axios</a>
+    <a class="read alt" href="https://www.youtube.com/watch?v=wSp6AiNIrsY" target="_blank" rel="noopener">Keynote</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- VIDEO · INNOVATIONS -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Innovations · Press play</span><span class="count mono">15 / 17</span></div>
+    <div class="play" data-yt="Xn-gtHDsaPY"><img src="https://i.ytimg.com/vi/Xn-gtHDsaPY/hqdefault.jpg" alt="7 new open-source AI tools" /><span class="pbtn"></span><span class="tag">▶ Fireship · Open source</span></div>
+    <h2 class="h">7 new open-source AI tools you need right now</h2>
+    <p class="dek">A fast, funny run through the open models and tools you can <mark>download and run yourself</mark> — no lab subscription, no waitlist.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">The frontier isn't only behind paywalls — a lot of it is free to run today.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">Open tooling is where individual builders quietly close the gap on the big labs.</span></div>
+    <a class="read alt" href="https://www.youtube.com/watch?v=Xn-gtHDsaPY" target="_blank" rel="noopener">Open on YouTube</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- VIDEO · WATCH LONG-FORM -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">Watch · Long-form</span><span class="count mono">16 / 17</span></div>
+    <div class="play" data-yt="EV7WhVT270Q"><img src="https://i.ytimg.com/vi/EV7WhVT270Q/hqdefault.jpg" alt="The State of AI in 2026" /><span class="pbtn"></span><span class="tag">▶ Lex Fridman</span></div>
+    <h2 class="h">The State of AI in 2026</h2>
+    <p class="dek">The long conversation that maps the whole board — <mark>where the models, the money and the power actually are</mark> as the year turns. Worth the full sit-down.</p>
+    <div class="catch"><span class="lab">The big catch</span><span class="t">One place to hear the year's throughline, unhurried and in full.</span></div>
+    <div class="why"><span class="lab">Why it matters</span><span class="t">The headlines move daily; this is the frame that makes them make sense.</span></div>
+    <a class="read alt" href="https://www.youtube.com/watch?v=EV7WhVT270Q" target="_blank" rel="noopener">Open on YouTube</a>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- 15 BY THE NUMBERS -->
+  <section class="slide"><div class="wrap"><div class="card">
+    <div class="top"><span class="chip">By the Numbers</span><span class="count mono">15 / 15</span></div>
+    <img class="hero" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/New_York_Stock_Exchange_Facade_2015.jpg/960px-New_York_Stock_Exchange_Facade_2015.jpg" alt="Markets" />
+    <h2 class="h">June, by the numbers</h2>
+    <p class="dek">Five figures that frame the month — <mark>tap any to read the source</mark>.</p>
+    <div class="numgrid">
+      <a class="numrow" href="https://www.cnbc.com/2026/04/15/public-opinion-ai-data-centers-anthropic-openai-ipo.html" target="_blank" rel="noopener">
+        <div class="fig">$965b</div><div class="nl">Anthropic</div><div class="nt">valuation as it files to go public.</div></a>
+      <a class="numrow" href="https://www.bloomberg.com/news/articles/2026-06-24/google-poised-to-lose-two-more-high-profile-ai-staffers-to-anthropic" target="_blank" rel="noopener">
+        <div class="fig">$270b</div><div class="nl">Google parent</div><div class="nt">wiped out in one talent week.</div></a>
+      <a class="numrow" href="https://www.datacenterdynamics.com/en/news/g42-ceo-says-company-will-receive-first-ai-chip-shipments-within-months-to-support-initial-200mw-of-capacity-for-planned-stargate-cluster/" target="_blank" rel="noopener">
+        <div class="fig">35k</div><div class="nl">Nvidia GB300</div><div class="nt">chips cleared for Abu Dhabi's G42.</div></a>
+      <a class="numrow" href="https://news.crunchbase.com/venture/biggest-funding-rounds-june-5-2026/" target="_blank" rel="noopener">
+        <div class="fig">$1.5b</div><div class="nl">Baseten</div><div class="nt">June's biggest AI-infra round.</div></a>
+      <a class="numrow" href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener" style="border-bottom:2px solid var(--ink);">
+        <div class="fig">Aug 2</div><div class="nl">EU AI Act</div><div class="nt">the date the first hard rules bite.</div></a>
+    </div>
+    <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
+  </div></div></section>
+
+  <!-- CLOSE -->
+  <section class="slide close"><div class="wrap"><div class="card">
+    <div class="kick">The Last Word · June 2026</div>
+    <p class="lw">This was the month AI stopped being about a smarter chatbot and became about <b>power, place and people</b>. Washington reached for the rulebook; Beijing, Brussels and Delhi wrote their own. The clearest progress showed up far from the labs — an Estonian classroom, a Houston hospital, a Jakarta control room.</p>
+    <div class="btns">
+      <a class="solid" href="https://files.catbox.moe/3dj6cz.pdf" target="_blank" rel="noopener">Open the full report (PDF)</a>
+      <a href="https://files.catbox.moe/ga1x44.mp3" target="_blank" rel="noopener">▶ Listen — the 2-minute brief</a>
+    </div>
+    <div class="foot"><span class="brand">AI PULSE · ZGNAL STUDIO</span></div>
+  </div></div></section>
+
+</div>
+
+<div class="navwrap">
+  <button class="nav prev" id="navP" type="button" aria-label="Previous card"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="nav next" id="navN" type="button" aria-label="Next card"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+<div class="dots" id="dots"></div>
+</div><!-- /ps-content -->
+</div><!-- /data-surface ps -->
+
+<script>
+  var deck = document.getElementById('deck');
+  var slides = deck.querySelectorAll('.slide');
+  var n = slides.length;
+  var hud = document.getElementById('hud');
+  var dots = document.getElementById('dots');
+  for (var i=0;i<n;i++){
+    var b=document.createElement('div'); b.className='bar'; hud.appendChild(b);
+    var d=document.createElement('button'); d.className='dot'; d.setAttribute('aria-label','Card '+(i+1));
+    (function(k){ d.addEventListener('click', function(){ goto(k); }); })(i);
+    dots.appendChild(d);
+  }
+  var bars = hud.querySelectorAll('.bar');
+  var dotEls = dots.querySelectorAll('.dot');
+  function idx(){ return Math.round(deck.scrollLeft / window.innerWidth); }
+  var navP=document.getElementById('navP'), navN=document.getElementById('navN');
+  function paint(){ var a=idx(); for (var i=0;i<n;i++){ bars[i].className='bar'+(i<=a?' done':''); dotEls[i].className='dot'+(i===a?' on':''); }
+    if(navP) navP.hidden = a<=0; if(navN) navN.hidden = a>=n-1; }
+  function goto(k){ k=Math.max(0,Math.min(n-1,k)); deck.scrollTo({left:k*window.innerWidth, behavior:'smooth'}); }
+  deck.addEventListener('scroll', function(){ window.requestAnimationFrame(paint); if(idx()>maxSeen){ maxSeen=idx(); track('card_view',{card:maxSeen}); if(maxSeen===n-1) track('deck_complete',{}); } }, {passive:true});
+  document.addEventListener('keydown', function(e){ if(e.key==='ArrowRight') goto(idx()+1); if(e.key==='ArrowLeft') goto(idx()-1); });
+  if(navP) navP.addEventListener('click', function(){ goto(idx()-1); });
+  if(navN) navN.addEventListener('click', function(){ goto(idx()+1); });
+  window.addEventListener('resize', paint);
+
+  // auto-number content cards (exclude cover + close) so counts stay correct
+  var content = [].filter.call(slides, function(s){ return !s.classList.contains('cover') && !s.classList.contains('close'); });
+  content.forEach(function(s,i){ var c=s.querySelector('.count'); if(c){ var k=i+1; c.textContent=(k<10?'0':'')+k+' / '+content.length; } });
+
+  // click-to-play video facades
+  [].forEach.call(document.querySelectorAll('.play[data-yt]'), function(p){
+    p.addEventListener('click', function(){
+      var id=p.getAttribute('data-yt');
+      p.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1" title="AI Pulse video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+      p.style.cursor='default'; track('video_play',{card:idx(),yt:id});
+    });
+  });
+
+  // WhatsApp share on every card — deep-links to that card via #index
+  var WA='<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#25D366" d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.3A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3z"/></svg>Share';
+  [].forEach.call(slides, function(slide, i){
+    var card=slide.querySelector('.card'); if(!card) return;
+    var foot=card.querySelector('.foot'); if(!foot) return;
+    var hEl=card.querySelector('.h'), wEl=card.querySelector('.mast .word'), lEl=card.querySelector('.lw');
+    var title = hEl ? hEl.textContent.trim() : (wEl ? 'The month in AI — swipe the cards' : (lEl ? 'The Last Word · June 2026' : 'AI Pulse · June 2026'));
+    var btn=document.createElement('button'); btn.className='share'; btn.type='button'; btn.innerHTML=WA;
+    btn.addEventListener('click', function(){
+      var base=location.href.split('#')[0];
+      var url=base+'#'+i;
+      var text='AI Pulse · June 2026 — '+title+'\n'+url;
+      window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+      track('share',{card:i});
+    });
+    foot.appendChild(btn);
+  });
+
+  // 30-sec audio brief — one shared player, EN/AR per card, files in ./audio/
+  var apEl = document.createElement('audio'); apEl.preload='none'; apEl.playsInline=true; document.body.appendChild(apEl);
+  var AUD = "/ai-pulse-cards/audio/";
+  function resetBars(){ [].forEach.call(document.querySelectorAll('.aplay.playing,.aplay.loading'), function(b){ b.classList.remove('playing'); b.classList.remove('loading'); }); }
+  apEl.addEventListener('ended', resetBars);
+  apEl.addEventListener('pause', resetBars);
+  content.forEach(function(slide, i){
+    var card=slide.querySelector('.card'); if(!card) return;
+    var top=card.querySelector('.top'); if(!top) return;
+    var nn=('0'+(i+1)).slice(-2);
+    var bar=document.createElement('div'); bar.className='abar'; bar.setAttribute('data-nn',nn); bar.setAttribute('data-lang','en');
+    bar.innerHTML='<button class="aplay" type="button" aria-label="Play 30-second audio brief"><span class="ic"></span></button>'+
+      '<div class="ainfo"><span class="atitle">▶ 30-sec brief</span><span class="asub">Executive audio · plain language</span></div>'+
+      '<div class="alang"><button class="lg on" type="button" data-l="en">EN</button><button class="lg" type="button" data-l="ar">ع</button></div>';
+    top.insertAdjacentElement('afterend', bar);
+    var playBtn=bar.querySelector('.aplay');
+    function srcFor(){ return AUD+bar.getAttribute('data-nn')+'_'+bar.getAttribute('data-lang')+'.mp3'; }
+    playBtn.addEventListener('click', function(){
+      var want=srcFor();
+      if(!apEl.paused && apEl.currentSrc && apEl.currentSrc.indexOf(want)>-1){ apEl.pause(); return; }
+      resetBars(); playBtn.classList.add('loading'); apEl.src=want;
+      apEl.play().then(function(){ playBtn.classList.remove('loading'); playBtn.classList.add('playing'); })
+                 .catch(function(){ playBtn.classList.remove('loading'); });
+      track('audio_play',{card:i,lang:bar.getAttribute('data-lang')});
+    });
+    [].forEach.call(bar.querySelectorAll('.lg'), function(lg){
+      lg.addEventListener('click', function(){
+        [].forEach.call(bar.querySelectorAll('.lg'), function(x){ x.classList.remove('on'); }); lg.classList.add('on');
+        bar.setAttribute('data-lang', lg.getAttribute('data-l'));
+        if(playBtn.classList.contains('playing')){ apEl.src=srcFor(); apEl.play().catch(function(){}); }
+      });
+    });
+  });
+  // full-month briefing on the cover (reuses the shared player)
+  var fullbar=document.getElementById('fullbar');
+  if(fullbar){
+    var fplay=fullbar.querySelector('.aplay');
+    var fsrc=function(){ return AUD+'full_'+fullbar.getAttribute('data-lang')+'.mp3'; };
+    fplay.addEventListener('click', function(){
+      var want=fsrc();
+      if(!apEl.paused && apEl.currentSrc && apEl.currentSrc.indexOf(want)>-1){ apEl.pause(); return; }
+      resetBars(); fplay.classList.add('loading'); apEl.src=want;
+      apEl.play().then(function(){ fplay.classList.remove('loading'); fplay.classList.add('playing'); }).catch(function(){ fplay.classList.remove('loading'); });
+      track('full_play',{lang:fullbar.getAttribute('data-lang')});
+    });
+    [].forEach.call(fullbar.querySelectorAll('.lg'), function(lg){
+      lg.addEventListener('click', function(){
+        [].forEach.call(fullbar.querySelectorAll('.lg'), function(x){ x.classList.remove('on'); }); lg.classList.add('on');
+        fullbar.setAttribute('data-lang', lg.getAttribute('data-l'));
+        if(fplay.classList.contains('playing')){ apEl.src=fsrc(); apEl.play().catch(function(){}); }
+      });
+    });
+  }
+
+  // cover table-of-contents mini-cards -> jump to that section
+  var TOC=[['01','The Big Six',1],['02','Startup of the Week',7],['03','New Rulebooks',8],['04','Editor’s Analysis',11],['05','Human Stories',12],['06','Frontier',16],['07','Watch & Listen',17],['08','By the Numbers',19]];
+  var tg=document.getElementById('tocgrid');
+  if(tg){ TOC.forEach(function(t){ var d=document.createElement('button'); d.type='button'; d.className='tocx';
+    d.innerHTML='<span class="rn">'+t[0]+'</span><span class="rl">'+t[1]+'</span>';
+    d.addEventListener('click', function(){ goto(t[2]); }); tg.appendChild(d); }); }
+
+  // pause section audio when you swipe (but let the full briefing keep playing)
+  deck.addEventListener('scroll', function(){ if(!apEl.paused && apEl.currentSrc.indexOf('full_')===-1) apEl.pause(); }, {passive:true});
+
+  // expand-in-place: full story per card (read without leaving the page)
+  var FULL = {
+   '01':"<p>Washington has cleared up to <b>35,000</b> of Nvidia's top GB300 accelerators for sale to G42, Abu Dhabi's AI champion — making the UAE the only country outside America's formal alliance network granted chips at this tier. First shipments are expected within months, powering an initial <b>200-megawatt</b> block of a planned Stargate-class cluster in the Emirates.</p><p>The decision turns advanced compute into open statecraft. Access pulls the UAE deeper into the US technology bloc — and, by implication, away from China's. For the Gulf the window is time-limited: the scarce assets are the chips and the power to run them, and the edge belongs to whoever deploys fastest.</p><p>Watch two things next: how quickly G42 brings capacity online, and whether the clearance carries conditions on Chinese-linked partnerships.</p>",
+   '02':"<p>Anthropic, the maker of the Claude models, has confidentially filed to go public after a round valued it near <b>$965 billion</b> — nudging ahead of rival OpenAI. The filing lands as the company reports its first stretch of operating profit, a rare marker of discipline in a field known for cash burn.</p><p>An IPO at this scale would be a first for the frontier-AI industry, handing public-market investors a direct stake — and, with it, the first real outside test of whether these valuations hold up under quarterly scrutiny.</p><p>The signal to watch: if Anthropic and OpenAI both list near a trillion dollars, public markets — not venture capitalists — start setting AI's price.</p>",
+   '03':"<p>In a single week, several of Google's most important AI researchers — including a Nobel laureate — left for Anthropic and OpenAI. The departures knocked roughly <b>$270 billion</b> off the value of Google's parent, a stark reminder of how concentrated the field's advantage really is.</p><p>Frontier AI still turns on a few hundred people who can push the state of the art. When they move, so does the advantage — which is why pay, equity and compute budgets for elite researchers have escalated into the tens of millions.</p><p>The lesson for any lab: moats made of talent can evaporate in a week; only compute and data compound over time.</p>",
+   '04':"<p>At its Build conference, Microsoft unveiled reasoning and coding models it trained from scratch — its most serious move yet to reduce reliance on partner OpenAI. Owning the models outright gives Microsoft a hedge, a way to cut costs, and more control over the AI baked into Windows, Office and Azure.</p><p>When even OpenAI's closest partner and largest backer decides it needs its own frontier models, it signals that owning the technology — not renting it — is becoming table stakes for any large platform.</p><p>Watch how Microsoft positions these against OpenAI's models inside its own products, and what it means for their unusual partnership.</p>",
+   '05':"<p>Oracle and OpenAI are building a vast <b>$16 billion</b> data-center campus in Saline, Michigan — part of the Stargate build-out. These are enormous facilities: acres of buildings, thousands of chips and power demands measured in hundreds of megawatts.</p><p>The story marks a shift in where AI's real bottleneck sits. It is no longer just the chips — it is the land, grid capacity and electricity to run them. Cheap, reliable power is fast becoming the deciding factor in who can scale AI, and it is reshaping the towns that host these campuses.</p><p>Expect power availability, not chip supply, to be the constraint that defines the next phase.</p>",
+   '06':"<p>A quiet but high-stakes contest has opened over AI that writes software. Anthropic's Claude Code leads, and Microsoft, Google and OpenAI are all racing to catch up. Coding is the first place enterprises are paying for AI at scale, every day, with measurable output.</p><p>That makes it the beachhead. Whoever owns the coding model owns the deepest, stickiest foothold inside engineering teams — and a direct line into the broader enterprise software budget.</p><p>The tell to watch: which model developers actually keep open in their terminal all day, not which scores highest on a benchmark.</p>",
+   '07':"<p>Etched has stepped out of stealth valued at <b>$5 billion</b>, betting on a different corner of the AI hardware market. Rather than chase Nvidia on training chips, it is shipping full <b>inference</b> clusters — its own chips, racks and software — tuned to run today's models faster and more cheaply.</p><p>Shipping starts this summer, at a moment when chips, memory and power are all in short supply. The wager: as AI moves from training to everyday use, the money shifts to inference — and purpose-built inference hardware becomes the pick-and-shovel trade of the cycle.</p><p>The risk: incumbents are moving into inference too, so Etched's edge has to be real and durable.</p>",
+   '08':"<p>China's open-weight AI models are pulling ahead on adoption. By mid-2026 they accounted for roughly <b>61%</b> of tokens on one large neutral router, with five of June's ten most-used models coming from China — led by Alibaba's Qwen, which has passed a billion downloads.</p><p>With US export controls blocking the best chips, China is competing on a different axis: give the models away as open weights and let global developers spread them. Openness has become industrial policy — a way to win reach and mindshare without a closed frontier lab.</p><p>The through-line: open weights are China's end-run around the chip bans.</p>",
+   '09':"<p>India is buying its way toward AI independence with public money. Through the IndiaAI Mission, the government now offers roughly <b>34,000</b> subsidised GPUs at about ₹65 per GPU-hour, heading for <b>100,000</b> by December, while Tata and OpenAI build gigawatt-scale data centres in the country.</p><p>The strategy treats compute like a public utility: make it cheap and available so startups, researchers and students can build, rather than waiting for the private market to price them in. It is a template other developing economies are likely to copy.</p><p>Watch whether subsidised access translates into homegrown models, or mainly cheaper access to foreign ones.</p>",
+   '10':"<p>Europe is putting the world's first hard AI rulebook into force. On 10 June the Commission published a Code of Practice for labelling AI-generated content and backed a European open-source model covering all 24 official languages. The bigger moment comes on <b>August 2</b>, when the AI Act's first binding obligations take effect.</p><p>From that date, any AI system sold into Europe inherits a compliance burden — documentation, transparency and risk controls. It is the strictest approach among the major blocs: rights and safety first, commercial convenience second.</p><p>Expect labelling disputes and a scramble by global vendors to certify their systems before the deadline.</p>",
+   '11':"<p>June's regulatory moves weren't one race but four, each bloc governing AI through the lever it already controls. The <b>US</b> governs by leverage — chip-export deals and executive orders rather than a broad federal law. <b>China</b> treats openness as industrial policy, spreading open-weight models to win reach past the chip bans. <b>India</b> subsidises compute as a public utility to buy access and independence. <b>Europe</b> writes one hard, horizontal law and makes everyone comply.</p><p>The real axis isn't fast versus slow — it's <b>control versus diffusion</b>. The US and EU are tightening; China and India are diffusing.</p><p>For the Gulf: you can buy compute like India and attract models like China, but the moment you sell abroad you inherit America's controls and Europe's compliance. The edge goes to whoever deploys fastest inside that box.</p>",
+   '12':"<p>AI is starting to show a measurable return in medicine. In a June survey, about <b>70%</b> of health organisations had deployed AI, and most that could measure results reported at least a <b>2x</b> return. One large system, Advocate Health, expects earlier diagnoses for tens of thousands of patients a year.</p><p>The significance is the shift from pilots to outcomes. After years of promise, AI in healthcare is producing quantifiable value — earlier detection, less paperwork, faster throughput — often far from the model labs that get the headlines.</p><p>Watch whether these gains hold up under regulatory scrutiny and real clinical audit, not just vendor surveys.</p>",
+   '13':"<p>Flood-prone Jakarta is using AI to get ahead of the water. The city now forecasts where flooding will occur <b>up to six hours early</b>, automatically opening gates and warning residents through an app, by processing thousands of sensor readings in real time.</p><p>It's a concrete example of AI moving from conversation to public safety. Instead of generating text, the system is coordinating drainage and evacuation for millions of people — a use case that may prove more valuable than any chatbot.</p><p>Climate resilience — flood, heat and storm forecasting — could become one of AI's most underrated public-service roles.</p>",
+   '14':"<p>Estonia is giving every teenager a personal AI tutor. Built with OpenAI, it is deliberately designed to <b>ask questions rather than hand over answers</b>, so students practise thinking instead of outsourcing it. The rollout covers every high school from day one, with teachers trained to use it alongside their lessons.</p><p>A country of 1.4 million has effectively turned AI tutoring into a public service — nationally, not as a pilot. It's a model a Gulf ministry with far larger resources could replicate within a single academic year.</p><p>The open question every education system now faces: does classroom AI deepen learning, or quietly erode it? Estonia's design is a bet on the former.</p>",
+   '15':"<p>In Jordan, more than <b>one million</b> students now learn with an AI tutor through a national program run with OpenAI. Crucially, it was built for the whole country from the start — not a small trial in a handful of schools.</p><p>The takeaway is about speed and scale: developing nations are putting AI into classrooms faster than wealthier countries are even debating the risks. National-scale deployment, not lab benchmarks, is increasingly where AI's real-world impact is decided.</p><p>Watch for early results on learning outcomes — the evidence that will tell other governments whether to follow.</p>",
+   '16':"<p>At GTC Taipei, Nvidia unveiled <b>Cosmos 3</b>, a single model that fuses vision, reasoning and action — plus a reference humanoid robot to run it. Until now AI has mostly lived on screens; this is the turn toward machines that perceive and move in the physical world.</p><p>Nvidia calls this \"physical AI,\" and Cosmos is pitched as its foundation model: one system that can see a scene, reason about it and control a robot to act. It reframes the central question from \"can it think?\" to \"can it act?\"</p><p>Robotics is shaping up as the next battleground — and it just got its foundational platform. Press play on the card to watch the keynote.</p>",
+   '17':"<p>This one's a fast, funny tour of seven brand-new, <b>free</b> and open-source AI tools you can download and use today — no expensive subscription, no waitlist. It's a useful reminder that a lot of genuinely powerful AI isn't locked behind a paywall.</p><p>For individuals and small teams, open tooling is the great equaliser: it's how a solo builder quietly closes the gap on the big labs. The video walks through what each tool does and where it fits.</p><p>Press play on the card to watch, then try the ones that match your workflow.</p>",
+   '18':"<p>If the daily AI news feels like noise, this long-form conversation is the antidote. It lays out the whole board — where the models, the money and the power actually sit as the year turns — in one unhurried sitting.</p><p>It's less about any single announcement and more about the frame that makes the headlines make sense: who's ahead, why, and what to watch next. Worth the full runtime.</p><p>Press play on the card to watch the interview.</p>",
+   '19':"<p>Five figures frame the month. <b>$965bn</b> — Anthropic's valuation as it files to go public. <b>$270bn</b> — wiped off Google's parent in a single week of talent losses. <b>35,000</b> — top Nvidia chips cleared for Abu Dhabi's G42. <b>$1.5bn</b> — Baseten's round, June's biggest AI-infrastructure raise. And <b>August 2</b> — the day Europe's first hard AI rules take effect.</p><p>Together they tell one story: capital, compute and regulation all concentrating and accelerating at once. Tap any figure on the card to read its source.</p>"
+  };
+  content.forEach(function(slide, i){
+    var card=slide.querySelector('.card'); if(!card) return;
+    var foot=card.querySelector('.foot'); if(!foot) return;
+    var nn=('0'+(i+1)).slice(-2); var body=FULL[nn]; if(!body) return;
+    var btn=document.createElement('button'); btn.type='button'; btn.className='more';
+    btn.innerHTML='<span class="mtx">Read the full story</span><span class="cx">&#9662;</span>';
+    var panel=document.createElement('div'); panel.className='full'; panel.innerHTML='<h4>The full story</h4>'+body;
+    foot.parentNode.insertBefore(btn, foot);
+    foot.parentNode.insertBefore(panel, foot);
+    btn.addEventListener('click', function(){
+      var open=panel.classList.toggle('open'); btn.classList.toggle('open', open);
+      btn.querySelector('.mtx').textContent = open ? 'Hide the full story' : 'Read the full story';
+      if(open){ track('expand',{card:i}); }
+    });
+  });
+
+  // deep-link: open on a specific card if URL ends in #N
+  (function(){ var h=parseInt((location.hash||'').replace('#',''),10);
+    if(!isNaN(h)&&h>0&&h<n){ setTimeout(function(){ deck.scrollTo({left:h*window.innerWidth}); paint(); }, 60); } })();
+
+  var AP_BEACON = null, maxSeen = 0;
+  function track(ev, data){ try { if(AP_BEACON) navigator.sendBeacon(AP_BEACON, JSON.stringify(Object.assign({ev:ev, ts:Date.now()}, data))); } catch(e){} }
+  [].forEach.call(document.querySelectorAll('a[href^="http"]'), function(a){
+    try { var u=new URL(a.href); u.searchParams.set('utm_source','aipulse'); u.searchParams.set('utm_medium','cards'); u.searchParams.set('utm_campaign','june2026'); a.href=u.toString(); } catch(e){}
+    a.addEventListener('click', function(){ track('link_click', {card:idx()}); });
+  });
+
+  paint();
+</script>
+</body>
+</html>
