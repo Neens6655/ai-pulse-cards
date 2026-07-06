@@ -193,12 +193,18 @@
   .topicgrid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
   .tchip{ display:flex; align-items:center; gap:10px; padding:11px 11px; background:var(--paper); border:2px solid var(--ink); box-shadow:3px 3px 0 rgba(28,28,28,0.14); cursor:pointer; text-align:left; transition:transform .1s ease, box-shadow .12s ease, background .15s ease; }
   .tchip .tk{ flex-shrink:0; width:19px; height:19px; border:2px solid var(--ink); background:transparent; position:relative; }
-  .tchip.sel{ background:var(--gold); }
-  .tchip.sel .tk{ background:var(--ink); }
+  .tchip.sel{ background:#FBF3DF; border-color:var(--ink); box-shadow:3px 3px 0 rgba(201,168,76,0.55); }
+  .tchip.sel .tk{ background:var(--gold-ink); border-color:var(--gold-ink); }
   .tchip.sel .tk:after{ content:"\2713"; position:absolute; inset:0; color:var(--gold); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
   .tchip .tl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink); line-height:1.22; }
   .tchip .tn{ display:block; font-family:'IBM Plex Mono',monospace; font-size:8px; font-weight:600; letter-spacing:0.04em; color:var(--gold-tt); margin-top:2px; }
-  .tchip.sel .tn{ color:#5c4a12; }
+  .tchip.sel .tn{ color:var(--gold-tt); }
+
+  /* section header above the picker */
+  .pickhead{ display:flex; align-items:center; gap:9px; margin-top:20px; padding-bottom:9px; border-bottom:2px solid var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold-tt); }
+  .pickhead:before{ content:""; width:14px; height:14px; background:var(--gold); border:2px solid var(--ink); flex-shrink:0; }
+  .topicgrid{ margin-top:12px; }
   .tchip:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(28,28,28,0.14); }
   @media (prefers-reduced-motion: reduce){ .tchip{ transition:none; } }
 
@@ -265,9 +271,10 @@
       <div class="eye">The Monthly AI Briefing</div>
       <div class="word">AI&nbsp;<b>PULSE</b></div>
       <div class="iss">June 2026 &middot; Issue 03</div>
-      <div class="sub">Build your own briefing.<br />Tap the angles you care about.</div>
+      <div class="sub">Build your own briefing — a feed tuned to you.</div>
     </div>
 
+    <div class="pickhead">Pick your favourite topics</div>
     <div class="topicgrid" id="topicgrid"></div>
 
     <a class="go" id="genbtn" href="#"><span class="gt">Generate my briefing</span><span class="ga">→</span></a>
@@ -706,7 +713,7 @@
     });
   });
   // ===================== HYPER-PERSONALIZATION ENGINE =====================
-  var TOPICS=[['must','Must-Reads'],['policy','Policy & Power'],['usecase','Practical Use-Cases'],['startup','Startups & Builders'],['skill','Get Better at AI'],['analysis','Editor’s Analysis'],['frontier','Frontier & Watch']];
+  var TOPICS=[['must','Must-Read Stories'],['policy','Policy & Power'],['usecase','Practical Use-Cases'],['startup','Startups & Builders'],['skill','Get Better at AI'],['analysis','Editor’s Analysis'],['frontier','Frontier & Watch']];
   // topics per content card, in DOM order (1..24)
   var TBP=[['must','policy'],['must'],['must'],['must'],['must'],['must','skill'],['startup'],['policy'],['policy'],['policy'],['analysis','policy'],['usecase'],['usecase'],['usecase','skill'],['usecase'],['frontier'],['frontier','skill'],['frontier'],['analysis','must'],['startup'],['startup','skill'],['skill'],['skill'],['skill']];
   content.forEach(function(s,i){ s.setAttribute('data-topic',(TBP[i]||[]).join(' ')); });
