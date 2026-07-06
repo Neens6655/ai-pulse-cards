@@ -189,23 +189,25 @@
   .tocx .rl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink); line-height:1.25; }
   @media (prefers-reduced-motion: reduce){ .go .ga,.go:before,.tocx{ animation:none; transition:none; } }
 
-  /* topic picker — selectable neo-brutalist chips */
-  .topicgrid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
-  .tchip{ display:flex; align-items:center; gap:10px; padding:11px 11px; background:var(--paper); border:2px solid var(--ink); box-shadow:3px 3px 0 rgba(28,28,28,0.14); cursor:pointer; text-align:left; transition:transform .1s ease, box-shadow .12s ease, background .15s ease; }
-  .tchip .tk{ flex-shrink:0; width:19px; height:19px; border:2px solid var(--ink); background:transparent; position:relative; }
-  .tchip.sel{ background:#FBF3DF; border-color:var(--ink); box-shadow:3px 3px 0 rgba(201,168,76,0.55); }
-  .tchip.sel .tk{ background:var(--gold-ink); border-color:var(--gold-ink); }
-  .tchip.sel .tk:after{ content:"\2713"; position:absolute; inset:0; color:var(--gold); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  /* topic picker — funky color-coded neo-brutalist chips (accent per topic via --ac) */
+  .topicgrid{ display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:12px; }
+  .tchip{ --ac:#8A6D24; display:flex; align-items:center; gap:11px; padding:11px 12px; background:var(--paper);
+    border:2px solid var(--ink); border-left:7px solid var(--ac); box-shadow:3px 3px 0 rgba(28,28,28,0.16);
+    cursor:pointer; text-align:left; transition:transform .1s ease, box-shadow .12s ease, background .15s ease; }
+  .tchip .tk{ flex-shrink:0; width:22px; height:22px; border:2px solid var(--ink); background:var(--paper); position:relative; }
+  .tchip.sel{ background:var(--paper); box-shadow:4px 4px 0 var(--ac); }
+  .tchip.sel .tk{ background:var(--ac); }
+  .tchip.sel .tk:after{ content:"\2713"; position:absolute; inset:0; color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; }
   .tchip .tl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink); line-height:1.22; }
-  .tchip .tn{ display:block; font-family:'IBM Plex Mono',monospace; font-size:8px; font-weight:600; letter-spacing:0.04em; color:var(--gold-tt); margin-top:2px; }
-  .tchip.sel .tn{ color:var(--gold-tt); }
+  .tchip .tn{ display:block; font-family:'IBM Plex Mono',monospace; font-size:8px; font-weight:700; letter-spacing:0.04em; color:var(--ac); margin-top:3px; }
+  .tchip:not(.sel){ opacity:0.62; }
+  .tchip:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ac); }
 
   /* section header above the picker */
-  .pickhead{ display:flex; align-items:center; gap:9px; margin-top:20px; padding-bottom:9px; border-bottom:2px solid var(--ink);
-    font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold-tt); }
-  .pickhead:before{ content:""; width:14px; height:14px; background:var(--gold); border:2px solid var(--ink); flex-shrink:0; }
-  .topicgrid{ margin-top:12px; }
-  .tchip:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(28,28,28,0.14); }
+  .pickhead{ display:flex; align-items:center; gap:9px; margin-top:20px; padding-bottom:9px; border-bottom:3px solid var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); }
+  .pickhead:before{ content:""; width:15px; height:15px; background:var(--brick,#C0392B); border:2px solid var(--ink); flex-shrink:0;
+    box-shadow:3px 0 0 -1px #2D6CC0, 6px 0 0 -2px #D2691E; }
   @media (prefers-reduced-motion: reduce){ .tchip{ transition:none; } }
 
   .close .kick{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:12px; }
@@ -274,7 +276,7 @@
       <div class="sub">Build your own briefing — a feed tuned to you.</div>
     </div>
 
-    <div class="pickhead">Pick your favourite topics</div>
+    <div class="pickhead">Pick your topics</div>
     <div class="topicgrid" id="topicgrid"></div>
 
     <a class="go" id="genbtn" href="#"><span class="gt">Generate my briefing</span><span class="ga">→</span></a>
@@ -713,7 +715,7 @@
     });
   });
   // ===================== HYPER-PERSONALIZATION ENGINE =====================
-  var TOPICS=[['must','Must-Read Stories'],['policy','Policy & Power'],['usecase','Practical Use-Cases'],['startup','Startups & Builders'],['skill','Get Better at AI'],['analysis','Editor’s Analysis'],['frontier','Frontier & Watch']];
+  var TOPICS=[['must','Must-Read Stories','#C0392B'],['policy','Policy & Power','#2E7D6B'],['usecase','Practical Use-Cases','#2D6CC0'],['startup','Startups & Builders','#7A3EA1'],['skill','Get Better at AI','#D2691E'],['analysis','Editor’s Analysis','#B83280'],['frontier','Frontier & Watch','#1F8A9C']];
   // topics per content card, in DOM order (1..24)
   var TBP=[['must','policy'],['must'],['must'],['must'],['must'],['must','skill'],['startup'],['policy'],['policy'],['policy'],['analysis','policy'],['usecase'],['usecase'],['usecase','skill'],['usecase'],['frontier'],['frontier','skill'],['frontier'],['analysis','must'],['startup'],['startup','skill'],['skill'],['skill'],['skill']];
   content.forEach(function(s,i){ s.setAttribute('data-topic',(TBP[i]||[]).join(' ')); });
@@ -724,6 +726,7 @@
   if(tgrid){ TOPICS.forEach(function(t){
     var cnt=content.filter(function(s){ return (s.getAttribute('data-topic')||'').split(' ').indexOf(t[0])>-1; }).length;
     var b=document.createElement('button'); b.type='button'; b.className='tchip sel'; b.setAttribute('data-t',t[0]);
+    b.style.setProperty('--ac', t[2]||'#8A6D24');
     b.innerHTML='<span class="tk"></span><span><span class="tl">'+t[1]+'</span><span class="tn">'+cnt+' cards</span></span>';
     b.addEventListener('click', function(){ selected[t[0]]=!selected[t[0]]; b.classList.toggle('sel',selected[t[0]]); });
     tgrid.appendChild(b);
