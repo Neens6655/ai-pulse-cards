@@ -68,8 +68,11 @@
   .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:44px 16px 28px; }
 
   /* the CARD — a contained slide floating on cream */
-  .card{ width:100%; max-width:480px; background:var(--paper); border:2px solid var(--ink);
-    box-shadow:7px 7px 0 rgba(28,28,28,0.10); padding:22px 22px 20px; }
+  .card{ width:100%; max-width:480px; background-color:var(--paper); border:2px solid var(--ink);
+    box-shadow:7px 7px 0 rgba(28,28,28,0.10); padding:22px 22px 20px;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='pp'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23pp)' opacity='0.035'/%3E%3C/svg%3E"),
+      repeating-linear-gradient(0deg, rgba(28,28,28,0.012) 0 1px, transparent 1px 4px); }
 
   /* header */
   .top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
@@ -103,8 +106,8 @@
   .ainfo{ flex:1; min-width:0; display:flex; flex-direction:column; gap:1px; }
   .atitle{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); }
   .asub{ font-size:10.5px; line-height:1.3; color:var(--muted); }
-  .alang{ flex-shrink:0; display:flex; border:1.5px solid var(--ink); }
-  .lg{ font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; padding:6px 9px; background:transparent; border:0; cursor:pointer; color:var(--muted); line-height:1; }
+  .alang{ flex-shrink:0; display:flex; border:1.5px solid var(--ink); overflow:hidden; }
+  .lg{ font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; min-width:40px; padding:7px 5px; background:transparent; border:0; cursor:pointer; color:var(--muted); line-height:1; text-align:center; display:flex; align-items:center; justify-content:center; transition:background .18s ease, color .18s ease; }
   .lg.on{ background:var(--ink); color:var(--paper); }
   .lg + .lg{ border-left:1.5px solid var(--ink); }
   @media (prefers-reduced-motion: reduce){ .aplay.loading .ic{ animation:none; } }
@@ -167,7 +170,22 @@
   .mast .word b{ color:var(--gold-ink); }
   .mast .iss{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:16px; }
   .mast .sub{ font-family:'IBM Plex Serif',serif; font-style:italic; font-size:16px; color:var(--body); margin-top:14px; line-height:1.5; }
-  .go{ display:block; text-align:center; margin-top:20px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:14px; text-decoration:none; }
+  .go{ position:relative; overflow:hidden; display:block; text-align:center; margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); background:var(--gold); padding:15px; text-decoration:none; border:2px solid var(--ink); box-shadow:4px 4px 0 rgba(28,28,28,0.18); transition:transform .14s ease, box-shadow .14s ease; }
+  .go:hover{ transform:translate(-1px,-1px); box-shadow:6px 6px 0 rgba(28,28,28,0.24); }
+  .go:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(28,28,28,0.18); }
+  .go .ga{ display:inline-block; margin-left:9px; animation:goarrow 1.2s ease-in-out infinite; }
+  .go:before{ content:""; position:absolute; top:0; left:-45%; width:32%; height:100%; background:linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent); transform:skewX(-18deg); animation:gosheen 2.8s ease-in-out infinite; pointer-events:none; }
+  @keyframes goarrow{ 0%,100%{transform:translateX(0);} 50%{transform:translateX(6px);} }
+  @keyframes gosheen{ 0%{left:-45%;} 55%,100%{left:130%;} }
+
+  /* cover table-of-contents mini-cards */
+  .tocgrid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
+  .tocx{ display:flex; align-items:center; gap:9px; padding:10px 11px; background:var(--panel); border:1.5px solid var(--ink); cursor:pointer; text-align:left; transition:background .15s ease, transform .1s ease; }
+  .tocx:hover{ background:var(--gold); } .tocx:active{ transform:translateY(1px); }
+  .tocx .rn{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:700; color:var(--gold-ink); flex-shrink:0; min-width:16px; text-align:left; }
+  .tocx:hover .rn{ color:var(--ink); }
+  .tocx .rl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink); line-height:1.25; }
+  @media (prefers-reduced-motion: reduce){ .go .ga,.go:before,.tocx{ animation:none; transition:none; } }
 
   .close .kick{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:12px; }
   .close .lw{ font-family:'IBM Plex Serif',serif; font-size:17px; line-height:1.6; color:var(--ink); margin-bottom:8px; }
@@ -229,12 +247,21 @@
   <!-- COVER -->
   <section class="slide cover"><div class="wrap"><div class="card">
     <div class="mast">
-      <div class="eye">The Twice-Monthly AI Briefing</div>
+      <div class="eye">The Monthly AI Briefing</div>
       <div class="word">AI&nbsp;<b>PULSE</b></div>
       <div class="iss">June 2026 &middot; Issue 03</div>
-      <div class="sub">The month in AI — fifteen cards.<br />Every one links to its source.</div>
+      <div class="sub">The month in AI — nineteen cards.<br />Every one links to its source.</div>
     </div>
-    <a class="go" href="#" onclick="deck.scrollTo({left:innerWidth,behavior:'smooth'});return false;">Swipe to begin →</a>
+
+    <div class="abar" id="fullbar" data-lang="en">
+      <button class="aplay" type="button" aria-label="Play the full briefing"><span class="ic"></span></button>
+      <div class="ainfo"><span class="atitle">▶ The full briefing</span><span class="asub">All nineteen stories, one continuous listen</span></div>
+      <div class="alang"><button class="lg on" type="button" data-l="en">EN</button><button class="lg" type="button" data-l="ar">ع</button></div>
+    </div>
+
+    <div class="tocgrid" id="tocgrid"></div>
+
+    <a class="go" href="#" onclick="deck.scrollTo({left:innerWidth,behavior:'smooth'});return false;"><span class="gt">Swipe to begin</span><span class="ga">→</span></a>
     <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
   </div></div></section>
 
@@ -598,8 +625,36 @@
       });
     });
   });
-  // pause audio when you swipe to another card
-  deck.addEventListener('scroll', function(){ if(!apEl.paused) apEl.pause(); }, {passive:true});
+  // full-month briefing on the cover (reuses the shared player)
+  var fullbar=document.getElementById('fullbar');
+  if(fullbar){
+    var fplay=fullbar.querySelector('.aplay');
+    var fsrc=function(){ return AUD+'full_'+fullbar.getAttribute('data-lang')+'.mp3'; };
+    fplay.addEventListener('click', function(){
+      var want=fsrc();
+      if(!apEl.paused && apEl.currentSrc && apEl.currentSrc.indexOf(want)>-1){ apEl.pause(); return; }
+      resetBars(); fplay.classList.add('loading'); apEl.src=want;
+      apEl.play().then(function(){ fplay.classList.remove('loading'); fplay.classList.add('playing'); }).catch(function(){ fplay.classList.remove('loading'); });
+      track('full_play',{lang:fullbar.getAttribute('data-lang')});
+    });
+    [].forEach.call(fullbar.querySelectorAll('.lg'), function(lg){
+      lg.addEventListener('click', function(){
+        [].forEach.call(fullbar.querySelectorAll('.lg'), function(x){ x.classList.remove('on'); }); lg.classList.add('on');
+        fullbar.setAttribute('data-lang', lg.getAttribute('data-l'));
+        if(fplay.classList.contains('playing')){ apEl.src=fsrc(); apEl.play().catch(function(){}); }
+      });
+    });
+  }
+
+  // cover table-of-contents mini-cards -> jump to that section
+  var TOC=[['I','The Big Six',1],['II','Startup of the Week',7],['III','New Rulebooks',8],['IV','Editor’s Analysis',11],['V','Human Stories',12],['VI','Frontier',16],['VII','Watch & Listen',17],['VIII','By the Numbers',19]];
+  var tg=document.getElementById('tocgrid');
+  if(tg){ TOC.forEach(function(t){ var d=document.createElement('button'); d.type='button'; d.className='tocx';
+    d.innerHTML='<span class="rn">'+t[0]+'</span><span class="rl">'+t[1]+'</span>';
+    d.addEventListener('click', function(){ goto(t[2]); }); tg.appendChild(d); }); }
+
+  // pause section audio when you swipe (but let the full briefing keep playing)
+  deck.addEventListener('scroll', function(){ if(!apEl.paused && apEl.currentSrc.indexOf('full_')===-1) apEl.pause(); }, {passive:true});
 
   // expand-in-place: full story per card (read without leaving the page)
   var FULL = {
