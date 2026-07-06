@@ -185,12 +185,14 @@
   .dot{ width:7px; height:7px; border:1.5px solid var(--gold-ink); background:transparent; padding:0; cursor:pointer; transition:background .2s ease; }
   .dot.on{ background:var(--gold-ink); }
 
-  /* small prev/next arrows hugging the left & right card edges (mobile-first) */
-  .nav{ position:fixed; top:50%; transform:translateY(-50%); z-index:8; width:30px; height:30px; border-radius:50%;
-    border:1.5px solid var(--gold-ink); background:rgba(255,253,247,0.78); backdrop-filter:blur(1px);
-    display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; }
+  /* small prev/next arrows pinned to the CARD's left & right edges (matches card width at any screen) */
+  .navwrap{ position:fixed; top:0; bottom:46px; left:16px; right:16px; margin-left:auto; margin-right:auto; max-width:480px; z-index:8; pointer-events:none; }
+  .nav{ position:absolute; top:50%; width:30px; height:30px; border-radius:50%;
+    border:1.5px solid var(--gold-ink); background:rgba(255,253,247,0.82); backdrop-filter:blur(1px);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; pointer-events:auto; }
   .nav svg{ width:13px; height:13px; stroke:var(--gold-ink); fill:none; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; }
-  .nav.prev{ left:4px; } .nav.next{ right:4px; }
+  .nav.prev{ left:0; transform:translate(-50%,-50%); }
+  .nav.next{ right:0; transform:translate(50%,-50%); }
   .nav[hidden]{ display:none; }
   @media (hover:hover){ .nav:hover{ background:var(--gold); border-color:var(--ink); } }
 
@@ -499,8 +501,10 @@
 
 </div>
 
-<button class="nav prev" id="navP" type="button" aria-label="Previous card"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-<button class="nav next" id="navN" type="button" aria-label="Next card"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+<div class="navwrap">
+  <button class="nav prev" id="navP" type="button" aria-label="Previous card"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="nav next" id="navN" type="button" aria-label="Next card"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
 <div class="dots" id="dots"></div>
 </div><!-- /ps-content -->
 </div><!-- /data-surface ps -->
