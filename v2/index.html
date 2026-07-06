@@ -192,25 +192,23 @@
   .tocx .rl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink); line-height:1.25; }
   @media (prefers-reduced-motion: reduce){ .go .ga,.go:before,.tocx{ animation:none; transition:none; } }
 
-  /* topic picker — funky color-coded neo-brutalist chips (accent per topic via --ac) */
+  /* topic picker — serious, institutional: charcoal + one restrained gold accent */
   .topicgrid{ display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:12px; }
-  .tchip{ --ac:#8A6D24; display:flex; align-items:center; gap:11px; padding:11px 12px; background:var(--paper);
-    border:2px solid var(--ink); border-left:7px solid var(--ac); box-shadow:3px 3px 0 rgba(28,28,28,0.16);
-    cursor:pointer; text-align:left; transition:transform .1s ease, box-shadow .12s ease, background .15s ease; }
-  .tchip .tk{ flex-shrink:0; width:22px; height:22px; border:2px solid var(--ink); background:var(--paper); position:relative; }
-  .tchip.sel{ background:var(--paper); box-shadow:4px 4px 0 var(--ac); }
-  .tchip.sel .tk{ background:var(--ac); }
-  .tchip.sel .tk:after{ content:"\2713"; position:absolute; inset:0; color:#fff; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .tchip{ display:flex; align-items:center; gap:11px; padding:11px 12px; background:var(--paper);
+    border:2px solid var(--ink); box-shadow:3px 3px 0 rgba(28,28,28,0.18);
+    cursor:pointer; text-align:left; transition:transform .1s ease, box-shadow .12s ease, opacity .15s ease; }
+  .tchip .tk{ flex-shrink:0; width:20px; height:20px; border:2px solid var(--ink); background:var(--paper); position:relative; }
+  .tchip.sel .tk{ background:var(--ink); }
+  .tchip.sel .tk:after{ content:"\2713"; position:absolute; inset:0; color:var(--gold); font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
   .tchip .tl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink); line-height:1.22; }
-  .tchip .tn{ display:block; font-family:'IBM Plex Mono',monospace; font-size:8px; font-weight:700; letter-spacing:0.04em; color:var(--ac); margin-top:3px; }
-  .tchip:not(.sel){ opacity:0.62; }
-  .tchip:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ac); }
+  .tchip .tn{ display:block; font-family:'IBM Plex Mono',monospace; font-size:8px; font-weight:600; letter-spacing:0.04em; color:var(--gold-tt); margin-top:3px; }
+  .tchip:not(.sel){ opacity:0.5; box-shadow:2px 2px 0 rgba(28,28,28,0.08); }
+  .tchip:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(28,28,28,0.18); }
 
   /* section header above the picker */
-  .pickhead{ display:flex; align-items:center; gap:9px; margin-top:20px; padding-bottom:9px; border-bottom:3px solid var(--ink);
+  .pickhead{ display:flex; align-items:center; gap:9px; margin-top:20px; padding-bottom:9px; border-bottom:2px solid var(--ink);
     font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); }
-  .pickhead:before{ content:""; width:15px; height:15px; background:var(--brick,#C0392B); border:2px solid var(--ink); flex-shrink:0;
-    box-shadow:3px 0 0 -1px #2D6CC0, 6px 0 0 -2px #D2691E; }
+  .pickhead:before{ content:""; width:13px; height:13px; background:var(--gold); border:2px solid var(--ink); flex-shrink:0; }
   @media (prefers-reduced-motion: reduce){ .tchip{ transition:none; } }
 
   .close .kick{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:12px; }
