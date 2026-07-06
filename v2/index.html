@@ -57,15 +57,15 @@
   @media (max-width:640px){ [data-surface="ps"] .paper-fold{ display:none; } }
 
   /* horizontal card rail */
-  .deck{ display:flex; height:calc(100vh - 46px); height:calc(100dvh - 46px); width:100vw; overflow-x:auto; overflow-y:hidden;
+  .deck{ display:flex; height:calc(100vh - 46px); height:calc(100dvh - 46px - env(safe-area-inset-bottom)); width:100vw; overflow-x:auto; overflow-y:hidden;
     scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
   .deck::-webkit-scrollbar{ display:none; }
 
   /* each slide: full width, own vertical scroll so rich cards never clip */
-  .slide{ min-width:100vw; width:100vw; height:calc(100vh - 46px); height:calc(100dvh - 46px); scroll-snap-align:center; scroll-snap-stop:always;
+  .slide{ min-width:100vw; width:100vw; height:calc(100vh - 46px); height:calc(100dvh - 46px - env(safe-area-inset-bottom)); scroll-snap-align:center; scroll-snap-stop:always;
     overflow-y:auto; overflow-x:hidden; scrollbar-width:none; }
   .slide::-webkit-scrollbar{ display:none; }
-  .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:44px 16px 28px; }
+  .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:calc(30px + env(safe-area-inset-top)) 16px 24px; }
 
   /* the CARD — a contained slide floating on cream */
   .card{ width:100%; max-width:480px; background-color:var(--paper); border:2px solid var(--ink);
@@ -75,7 +75,8 @@
       repeating-linear-gradient(0deg, rgba(28,28,28,0.012) 0 1px, transparent 1px 4px); }
 
   /* header */
-  .top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .top{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:14px; }
+  .top .chip{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .chip{ font-size:9.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);
     background:var(--gold); padding:5px 10px; }
   .count{ display:none; }
@@ -97,17 +98,19 @@
   .play iframe{ width:100%; height:210px; border:0; display:block; }
 
   /* 30-sec audio brief bar */
-  .abar{ display:flex; align-items:center; gap:11px; margin-bottom:16px; padding:9px 11px; border:2px solid var(--ink); background:var(--panel); }
-  .aplay{ flex-shrink:0; width:40px; height:40px; border-radius:50%; border:2px solid var(--ink); background:var(--gold); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; }
-  .aplay .ic{ display:block; margin-left:3px; width:0; height:0; border-style:solid; border-width:8px 0 8px 13px; border-color:transparent transparent transparent #1C1C1C; }
-  .aplay.playing .ic{ margin-left:0; width:12px; height:14px; border:0; border-left:4px solid #1C1C1C; border-right:4px solid #1C1C1C; }
-  .aplay.loading .ic{ animation:apulse .8s ease-in-out infinite; }
-  @keyframes apulse{ 0%,100%{opacity:.4;} 50%{opacity:1;} }
+  .aud{ display:flex; align-items:center; gap:7px; flex-shrink:0; }
+  .aplay{ flex-shrink:0; width:34px; height:34px; border-radius:50%; border:2px solid var(--ink); background:var(--gold); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; }
+  .aplay .ic{ display:block; margin-left:2px; width:0; height:0; border-style:solid; border-width:6px 0 6px 10px; border-color:transparent transparent transparent #1C1C1C; }
+  .aplay.playing .ic{ margin-left:0; width:10px; height:12px; border:0; border-left:3.5px solid #1C1C1C; border-right:3.5px solid #1C1C1C; }
+  .aplay.loading{ pointer-events:none; }
+  .aplay.loading .ic{ width:16px; height:16px; margin:0; border:2.5px solid rgba(28,28,28,0.25); border-top-color:#1C1C1C; border-radius:50%; animation:aspin .65s linear infinite; }
+  @keyframes aspin{ to{ transform:rotate(360deg); } }
+  .aplay.loading + .ainfo .atitle:after{ content:" · preparing…"; color:var(--gold-tt); font-weight:600; }
   .ainfo{ flex:1; min-width:0; display:flex; flex-direction:column; gap:1px; }
   .atitle{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); }
   .asub{ font-size:10.5px; line-height:1.3; color:var(--muted); }
   .alang{ flex-shrink:0; display:flex; border:1.5px solid var(--ink); overflow:hidden; }
-  .lg{ font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; min-width:40px; padding:7px 5px; background:transparent; border:0; cursor:pointer; color:var(--muted); line-height:1; text-align:center; display:flex; align-items:center; justify-content:center; transition:background .18s ease, color .18s ease; }
+  .lg{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; min-width:31px; padding:6px 4px; background:transparent; border:0; cursor:pointer; color:var(--muted); line-height:1; text-align:center; display:flex; align-items:center; justify-content:center; transition:background .18s ease, color .18s ease; }
   .lg.on{ background:var(--ink); color:var(--paper); }
   .lg + .lg{ border-left:1.5px solid var(--ink); }
   @media (prefers-reduced-motion: reduce){ .aplay.loading .ic{ animation:none; } }
@@ -218,16 +221,16 @@
   .btns a.solid{ background:var(--gold); color:var(--ink); border-color:var(--ink); }
 
   /* HUD progress + dot nav */
-  .hud{ position:fixed; top:0; left:0; right:0; z-index:9; display:flex; gap:3px; padding:8px 12px; pointer-events:none; }
+  .hud{ position:fixed; top:0; left:0; right:0; z-index:9; display:flex; gap:3px; padding:calc(8px + env(safe-area-inset-top)) 12px 8px; pointer-events:none; }
   .bar{ flex:1; height:3px; background:var(--hair); transition:background .2s ease; }
   .bar.done{ background:var(--gold-ink); }
-  .dots{ position:fixed; left:0; right:0; bottom:0; z-index:9; height:46px; display:flex; justify-content:center; align-items:center; gap:6px; flex-wrap:nowrap; padding:0 20px;
+  .dots{ position:fixed; left:0; right:0; bottom:0; z-index:9; height:calc(46px + env(safe-area-inset-bottom)); display:flex; justify-content:center; align-items:center; gap:6px; flex-wrap:nowrap; padding:0 20px env(safe-area-inset-bottom);
     background:var(--hub-bg); border-top:1px solid var(--hub-bg-deep); }
   .dot{ width:7px; height:7px; border:1.5px solid var(--gold-ink); background:transparent; padding:0; cursor:pointer; transition:background .2s ease; }
   .dot.on{ background:var(--gold-ink); }
 
   /* small prev/next arrows pinned to the CARD's left & right edges (matches card width at any screen) */
-  .navwrap{ position:fixed; top:0; bottom:46px; left:16px; right:16px; margin-left:auto; margin-right:auto; max-width:480px; z-index:8; pointer-events:none; }
+  .navwrap{ position:fixed; top:0; bottom:calc(46px + env(safe-area-inset-bottom)); left:16px; right:16px; margin-left:auto; margin-right:auto; max-width:480px; z-index:8; pointer-events:none; }
   .nav{ position:absolute; top:50%; width:30px; height:30px; border-radius:50%;
     border:1.5px solid var(--gold-ink); background:rgba(255,253,247,0.82); backdrop-filter:blur(1px);
     display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; pointer-events:auto; }
@@ -280,12 +283,6 @@
     <div class="topicgrid" id="topicgrid"></div>
 
     <a class="go" id="genbtn" href="#"><span class="gt">Generate my briefing</span><span class="ga">→</span></a>
-
-    <div class="abar" id="fullbar" data-lang="en">
-      <button class="aplay" type="button" aria-label="Play the full briefing"><span class="ic"></span></button>
-      <div class="ainfo"><span class="atitle">▶ Listen to your briefing</span><span class="asub" id="fullsub">Every selected story, one continuous listen</span></div>
-      <div class="alang"><button class="lg on" type="button" data-l="en">EN</button><button class="lg" type="button" data-l="ar">ع</button></div>
-    </div>
 
     <div class="foot"><span class="brand">AI PULSE · JUN 2026</span></div>
   </div></div></section>
@@ -691,11 +688,10 @@
     var card=slide.querySelector('.card'); if(!card) return;
     var top=card.querySelector('.top'); if(!top) return;
     var nn=('0'+(i+1)).slice(-2);
-    var bar=document.createElement('div'); bar.className='abar'; bar.setAttribute('data-nn',nn); bar.setAttribute('data-lang','en');
+    var bar=document.createElement('div'); bar.className='aud'; bar.setAttribute('data-nn',nn); bar.setAttribute('data-lang','en');
     bar.innerHTML='<button class="aplay" type="button" aria-label="Play 30-second audio brief"><span class="ic"></span></button>'+
-      '<div class="ainfo"><span class="atitle">▶ 30-sec brief</span><span class="asub">Executive audio · plain language</span></div>'+
       '<div class="alang"><button class="lg on" type="button" data-l="en">EN</button><button class="lg" type="button" data-l="ar">ع</button></div>';
-    top.insertAdjacentElement('afterend', bar);
+    top.appendChild(bar);
     var playBtn=bar.querySelector('.aplay');
     function srcFor(){ return AUD+bar.getAttribute('data-nn')+'_'+bar.getAttribute('data-lang')+'.mp3'; }
     playBtn.addEventListener('click', function(){
@@ -715,9 +711,9 @@
     });
   });
   // ===================== HYPER-PERSONALIZATION ENGINE =====================
-  var TOPICS=[['must','Must-Read Stories','#C0392B'],['policy','Policy & Power','#2E7D6B'],['usecase','Practical Use-Cases','#2D6CC0'],['startup','Startups & Builders','#7A3EA1'],['skill','Get Better at AI','#D2691E'],['analysis','Editor’s Analysis','#B83280'],['frontier','Frontier & Watch','#1F8A9C']];
+  var TOPICS=[['must','Must-Read Stories','#C0392B'],['policy','Policy & Power','#2E7D6B'],['usecase','Practical Use-Cases','#2D6CC0'],['startup','Startups & Builders','#7A3EA1'],['skill','Get Better at AI','#D2691E'],['markets','Money & Markets','#2E8B57'],['analysis','Editor’s Analysis','#B83280'],['frontier','Frontier & Watch','#1F8A9C']];
   // topics per content card, in DOM order (1..24)
-  var TBP=[['must','policy'],['must'],['must'],['must'],['must'],['must','skill'],['startup'],['policy'],['policy'],['policy'],['analysis','policy'],['usecase'],['usecase'],['usecase','skill'],['usecase'],['frontier'],['frontier','skill'],['frontier'],['analysis','must'],['startup'],['startup','skill'],['skill'],['skill'],['skill']];
+  var TBP=[['must','policy'],['must','markets'],['must','markets'],['must'],['must'],['must','skill'],['startup','markets'],['policy'],['policy'],['policy'],['analysis','policy'],['usecase'],['usecase'],['usecase','skill'],['usecase'],['frontier'],['frontier','skill'],['frontier'],['analysis','must','markets'],['startup'],['startup','skill'],['skill'],['skill'],['skill']];
   content.forEach(function(s,i){ s.setAttribute('data-topic',(TBP[i]||[]).join(' ')); });
   function audNN(slide){ return ('0'+([].indexOf.call(content,slide)+1)).slice(-2); }
   var selected={}; TOPICS.forEach(function(t){ selected[t[0]]=true; });
