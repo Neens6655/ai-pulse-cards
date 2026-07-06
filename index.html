@@ -75,7 +75,7 @@
   .top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
   .chip{ font-size:9.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);
     background:var(--gold); padding:5px 10px; }
-  .count{ font-size:11px; font-weight:700; letter-spacing:0.06em; color:var(--gold-tt); }
+  .count{ display:none; }
 
   /* hero */
   .hero{ width:100%; height:194px; object-fit:cover; display:block; border:2px solid var(--ink); background:var(--panel); margin-bottom:16px; }
@@ -185,17 +185,30 @@
   .dot{ width:7px; height:7px; border:1.5px solid var(--gold-ink); background:transparent; padding:0; cursor:pointer; transition:background .2s ease; }
   .dot.on{ background:var(--gold-ink); }
 
-  /* funky swipe cue — shows after the cover, teaches the gesture, then fades */
-  .sfx{ position:fixed; left:50%; bottom:58px; transform:translateX(-50%); z-index:8; display:none; align-items:center; gap:10px;
-    padding:8px 15px; background:rgba(255,253,247,0.94); border:2px solid var(--ink); box-shadow:3px 3px 0 rgba(28,28,28,0.16); pointer-events:none; }
-  .sfx.on{ display:flex; }
-  .sfx .cv{ width:15px; height:15px; stroke:var(--gold-ink); fill:none; }
-  .sfx .tx{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-tt); }
-  .sfx .l{ animation:sbobL 1.1s ease-in-out infinite; }
-  .sfx .r{ animation:sbobR 1.1s ease-in-out infinite; }
-  @keyframes sbobR{ 0%,100%{transform:translateX(0);opacity:.45;} 50%{transform:translateX(7px);opacity:1;} }
-  @keyframes sbobL{ 0%,100%{transform:translateX(0);opacity:.45;} 50%{transform:translateX(-7px);opacity:1;} }
-  @media (prefers-reduced-motion: reduce){ .sfx .l,.sfx .r{ animation:none; opacity:.85; } }
+  /* clickable prev/next arrows on the left & right edges */
+  .nav{ position:fixed; top:calc(50% - 24px); z-index:8; width:46px; height:46px; border-radius:50%;
+    border:2px solid var(--ink); background:rgba(255,253,247,0.9); box-shadow:2px 2px 0 rgba(28,28,28,0.18);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; animation:navpulse 1.6s ease-in-out infinite; }
+  .nav svg{ width:20px; height:20px; stroke:var(--gold-ink); fill:none; stroke-width:2.7; stroke-linecap:round; stroke-linejoin:round; }
+  .nav.prev{ left:7px; } .nav.next{ right:7px; }
+  .nav[hidden]{ display:none; }
+  @keyframes navpulse{ 0%,100%{box-shadow:2px 2px 0 rgba(28,28,28,0.18);} 50%{box-shadow:2px 2px 0 rgba(201,168,76,0.55);} }
+  @media (hover:hover){ .nav:hover{ background:var(--gold); } }
+  @media (prefers-reduced-motion: reduce){ .nav{ animation:none; } }
+
+  /* expand-in-place: read the full story without leaving */
+  .more{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin-top:14px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--gold-tt); background:var(--panel); border:2px solid var(--gold); padding:12px 15px; cursor:pointer; }
+  .more .cx{ display:inline-block; transition:transform .22s ease; font-size:13px; }
+  .more.open .cx{ transform:rotate(180deg); }
+  .full{ display:none; margin-top:14px; padding:15px 15px 4px; background:var(--paper); border:2px solid var(--hair); border-top:3px solid var(--gold); }
+  .full.open{ display:block; animation:fullin .25s ease; }
+  @keyframes fullin{ from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:none;} }
+  .full h4{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:11px; }
+  .full p{ font-size:15.5px; line-height:1.7; color:var(--body); margin-bottom:13px; }
+  .full p b{ color:var(--ink); font-weight:600; }
+  @media (prefers-reduced-motion: reduce){ .more .cx{ transition:none; } .full.open{ animation:none; } }
   @media (prefers-reduced-motion: reduce){ .bar,.dot,.swipe{ transition:none; animation:none; } }
   @media (max-width:380px){ .h{ font-size:24px; } .mast .word{ font-size:52px; } }
 </style>
@@ -488,11 +501,8 @@
 
 </div>
 
-<div class="sfx" id="sfx" aria-hidden="true">
-  <svg class="cv l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  <span class="tx">Swipe</span>
-  <svg class="cv r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-</div>
+<button class="nav prev" id="navP" type="button" aria-label="Previous card"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+<button class="nav next" id="navN" type="button" aria-label="Next card"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
 <div class="dots" id="dots"></div>
 </div><!-- /ps-content -->
 </div><!-- /data-surface ps -->
@@ -512,12 +522,14 @@
   var bars = hud.querySelectorAll('.bar');
   var dotEls = dots.querySelectorAll('.dot');
   function idx(){ return Math.round(deck.scrollLeft / window.innerWidth); }
-  var sfx=document.getElementById('sfx');
+  var navP=document.getElementById('navP'), navN=document.getElementById('navN');
   function paint(){ var a=idx(); for (var i=0;i<n;i++){ bars[i].className='bar'+(i<=a?' done':''); dotEls[i].className='dot'+(i===a?' on':''); }
-    if(sfx) sfx.classList.toggle('on', a>=1 && maxSeen<5); }
+    if(navP) navP.hidden = a<=0; if(navN) navN.hidden = a>=n-1; }
   function goto(k){ k=Math.max(0,Math.min(n-1,k)); deck.scrollTo({left:k*window.innerWidth, behavior:'smooth'}); }
   deck.addEventListener('scroll', function(){ window.requestAnimationFrame(paint); if(idx()>maxSeen){ maxSeen=idx(); track('card_view',{card:maxSeen}); if(maxSeen===n-1) track('deck_complete',{}); } }, {passive:true});
   document.addEventListener('keydown', function(e){ if(e.key==='ArrowRight') goto(idx()+1); if(e.key==='ArrowLeft') goto(idx()-1); });
+  if(navP) navP.addEventListener('click', function(){ goto(idx()-1); });
+  if(navN) navN.addEventListener('click', function(){ goto(idx()+1); });
   window.addEventListener('resize', paint);
 
   // auto-number content cards (exclude cover + close) so counts stay correct
@@ -586,6 +598,44 @@
   });
   // pause audio when you swipe to another card
   deck.addEventListener('scroll', function(){ if(!apEl.paused) apEl.pause(); }, {passive:true});
+
+  // expand-in-place: full story per card (read without leaving the page)
+  var FULL = {
+   '01':"<p>Washington has cleared up to <b>35,000</b> of Nvidia's top GB300 accelerators for sale to G42, Abu Dhabi's AI champion — making the UAE the only country outside America's formal alliance network granted chips at this tier. First shipments are expected within months, powering an initial <b>200-megawatt</b> block of a planned Stargate-class cluster in the Emirates.</p><p>The decision turns advanced compute into open statecraft. Access pulls the UAE deeper into the US technology bloc — and, by implication, away from China's. For the Gulf the window is time-limited: the scarce assets are the chips and the power to run them, and the edge belongs to whoever deploys fastest.</p><p>Watch two things next: how quickly G42 brings capacity online, and whether the clearance carries conditions on Chinese-linked partnerships.</p>",
+   '02':"<p>Anthropic, the maker of the Claude models, has confidentially filed to go public after a round valued it near <b>$965 billion</b> — nudging ahead of rival OpenAI. The filing lands as the company reports its first stretch of operating profit, a rare marker of discipline in a field known for cash burn.</p><p>An IPO at this scale would be a first for the frontier-AI industry, handing public-market investors a direct stake — and, with it, the first real outside test of whether these valuations hold up under quarterly scrutiny.</p><p>The signal to watch: if Anthropic and OpenAI both list near a trillion dollars, public markets — not venture capitalists — start setting AI's price.</p>",
+   '03':"<p>In a single week, several of Google's most important AI researchers — including a Nobel laureate — left for Anthropic and OpenAI. The departures knocked roughly <b>$270 billion</b> off the value of Google's parent, a stark reminder of how concentrated the field's advantage really is.</p><p>Frontier AI still turns on a few hundred people who can push the state of the art. When they move, so does the advantage — which is why pay, equity and compute budgets for elite researchers have escalated into the tens of millions.</p><p>The lesson for any lab: moats made of talent can evaporate in a week; only compute and data compound over time.</p>",
+   '04':"<p>At its Build conference, Microsoft unveiled reasoning and coding models it trained from scratch — its most serious move yet to reduce reliance on partner OpenAI. Owning the models outright gives Microsoft a hedge, a way to cut costs, and more control over the AI baked into Windows, Office and Azure.</p><p>When even OpenAI's closest partner and largest backer decides it needs its own frontier models, it signals that owning the technology — not renting it — is becoming table stakes for any large platform.</p><p>Watch how Microsoft positions these against OpenAI's models inside its own products, and what it means for their unusual partnership.</p>",
+   '05':"<p>Oracle and OpenAI are building a vast <b>$16 billion</b> data-center campus in Saline, Michigan — part of the Stargate build-out. These are enormous facilities: acres of buildings, thousands of chips and power demands measured in hundreds of megawatts.</p><p>The story marks a shift in where AI's real bottleneck sits. It is no longer just the chips — it is the land, grid capacity and electricity to run them. Cheap, reliable power is fast becoming the deciding factor in who can scale AI, and it is reshaping the towns that host these campuses.</p><p>Expect power availability, not chip supply, to be the constraint that defines the next phase.</p>",
+   '06':"<p>A quiet but high-stakes contest has opened over AI that writes software. Anthropic's Claude Code leads, and Microsoft, Google and OpenAI are all racing to catch up. Coding is the first place enterprises are paying for AI at scale, every day, with measurable output.</p><p>That makes it the beachhead. Whoever owns the coding model owns the deepest, stickiest foothold inside engineering teams — and a direct line into the broader enterprise software budget.</p><p>The tell to watch: which model developers actually keep open in their terminal all day, not which scores highest on a benchmark.</p>",
+   '07':"<p>Etched has stepped out of stealth valued at <b>$5 billion</b>, betting on a different corner of the AI hardware market. Rather than chase Nvidia on training chips, it is shipping full <b>inference</b> clusters — its own chips, racks and software — tuned to run today's models faster and more cheaply.</p><p>Shipping starts this summer, at a moment when chips, memory and power are all in short supply. The wager: as AI moves from training to everyday use, the money shifts to inference — and purpose-built inference hardware becomes the pick-and-shovel trade of the cycle.</p><p>The risk: incumbents are moving into inference too, so Etched's edge has to be real and durable.</p>",
+   '08':"<p>China's open-weight AI models are pulling ahead on adoption. By mid-2026 they accounted for roughly <b>61%</b> of tokens on one large neutral router, with five of June's ten most-used models coming from China — led by Alibaba's Qwen, which has passed a billion downloads.</p><p>With US export controls blocking the best chips, China is competing on a different axis: give the models away as open weights and let global developers spread them. Openness has become industrial policy — a way to win reach and mindshare without a closed frontier lab.</p><p>The through-line: open weights are China's end-run around the chip bans.</p>",
+   '09':"<p>India is buying its way toward AI independence with public money. Through the IndiaAI Mission, the government now offers roughly <b>34,000</b> subsidised GPUs at about ₹65 per GPU-hour, heading for <b>100,000</b> by December, while Tata and OpenAI build gigawatt-scale data centres in the country.</p><p>The strategy treats compute like a public utility: make it cheap and available so startups, researchers and students can build, rather than waiting for the private market to price them in. It is a template other developing economies are likely to copy.</p><p>Watch whether subsidised access translates into homegrown models, or mainly cheaper access to foreign ones.</p>",
+   '10':"<p>Europe is putting the world's first hard AI rulebook into force. On 10 June the Commission published a Code of Practice for labelling AI-generated content and backed a European open-source model covering all 24 official languages. The bigger moment comes on <b>August 2</b>, when the AI Act's first binding obligations take effect.</p><p>From that date, any AI system sold into Europe inherits a compliance burden — documentation, transparency and risk controls. It is the strictest approach among the major blocs: rights and safety first, commercial convenience second.</p><p>Expect labelling disputes and a scramble by global vendors to certify their systems before the deadline.</p>",
+   '11':"<p>June's regulatory moves weren't one race but four, each bloc governing AI through the lever it already controls. The <b>US</b> governs by leverage — chip-export deals and executive orders rather than a broad federal law. <b>China</b> treats openness as industrial policy, spreading open-weight models to win reach past the chip bans. <b>India</b> subsidises compute as a public utility to buy access and independence. <b>Europe</b> writes one hard, horizontal law and makes everyone comply.</p><p>The real axis isn't fast versus slow — it's <b>control versus diffusion</b>. The US and EU are tightening; China and India are diffusing.</p><p>For the Gulf: you can buy compute like India and attract models like China, but the moment you sell abroad you inherit America's controls and Europe's compliance. The edge goes to whoever deploys fastest inside that box.</p>",
+   '12':"<p>AI is starting to show a measurable return in medicine. In a June survey, about <b>70%</b> of health organisations had deployed AI, and most that could measure results reported at least a <b>2x</b> return. One large system, Advocate Health, expects earlier diagnoses for tens of thousands of patients a year.</p><p>The significance is the shift from pilots to outcomes. After years of promise, AI in healthcare is producing quantifiable value — earlier detection, less paperwork, faster throughput — often far from the model labs that get the headlines.</p><p>Watch whether these gains hold up under regulatory scrutiny and real clinical audit, not just vendor surveys.</p>",
+   '13':"<p>Flood-prone Jakarta is using AI to get ahead of the water. The city now forecasts where flooding will occur <b>up to six hours early</b>, automatically opening gates and warning residents through an app, by processing thousands of sensor readings in real time.</p><p>It's a concrete example of AI moving from conversation to public safety. Instead of generating text, the system is coordinating drainage and evacuation for millions of people — a use case that may prove more valuable than any chatbot.</p><p>Climate resilience — flood, heat and storm forecasting — could become one of AI's most underrated public-service roles.</p>",
+   '14':"<p>Estonia is giving every teenager a personal AI tutor. Built with OpenAI, it is deliberately designed to <b>ask questions rather than hand over answers</b>, so students practise thinking instead of outsourcing it. The rollout covers every high school from day one, with teachers trained to use it alongside their lessons.</p><p>A country of 1.4 million has effectively turned AI tutoring into a public service — nationally, not as a pilot. It's a model a Gulf ministry with far larger resources could replicate within a single academic year.</p><p>The open question every education system now faces: does classroom AI deepen learning, or quietly erode it? Estonia's design is a bet on the former.</p>",
+   '15':"<p>In Jordan, more than <b>one million</b> students now learn with an AI tutor through a national program run with OpenAI. Crucially, it was built for the whole country from the start — not a small trial in a handful of schools.</p><p>The takeaway is about speed and scale: developing nations are putting AI into classrooms faster than wealthier countries are even debating the risks. National-scale deployment, not lab benchmarks, is increasingly where AI's real-world impact is decided.</p><p>Watch for early results on learning outcomes — the evidence that will tell other governments whether to follow.</p>",
+   '16':"<p>At GTC Taipei, Nvidia unveiled <b>Cosmos 3</b>, a single model that fuses vision, reasoning and action — plus a reference humanoid robot to run it. Until now AI has mostly lived on screens; this is the turn toward machines that perceive and move in the physical world.</p><p>Nvidia calls this \"physical AI,\" and Cosmos is pitched as its foundation model: one system that can see a scene, reason about it and control a robot to act. It reframes the central question from \"can it think?\" to \"can it act?\"</p><p>Robotics is shaping up as the next battleground — and it just got its foundational platform. Press play on the card to watch the keynote.</p>",
+   '17':"<p>This one's a fast, funny tour of seven brand-new, <b>free</b> and open-source AI tools you can download and use today — no expensive subscription, no waitlist. It's a useful reminder that a lot of genuinely powerful AI isn't locked behind a paywall.</p><p>For individuals and small teams, open tooling is the great equaliser: it's how a solo builder quietly closes the gap on the big labs. The video walks through what each tool does and where it fits.</p><p>Press play on the card to watch, then try the ones that match your workflow.</p>",
+   '18':"<p>If the daily AI news feels like noise, this long-form conversation is the antidote. It lays out the whole board — where the models, the money and the power actually sit as the year turns — in one unhurried sitting.</p><p>It's less about any single announcement and more about the frame that makes the headlines make sense: who's ahead, why, and what to watch next. Worth the full runtime.</p><p>Press play on the card to watch the interview.</p>",
+   '19':"<p>Five figures frame the month. <b>$965bn</b> — Anthropic's valuation as it files to go public. <b>$270bn</b> — wiped off Google's parent in a single week of talent losses. <b>35,000</b> — top Nvidia chips cleared for Abu Dhabi's G42. <b>$1.5bn</b> — Baseten's round, June's biggest AI-infrastructure raise. And <b>August 2</b> — the day Europe's first hard AI rules take effect.</p><p>Together they tell one story: capital, compute and regulation all concentrating and accelerating at once. Tap any figure on the card to read its source.</p>"
+  };
+  content.forEach(function(slide, i){
+    var card=slide.querySelector('.card'); if(!card) return;
+    var foot=card.querySelector('.foot'); if(!foot) return;
+    var nn=('0'+(i+1)).slice(-2); var body=FULL[nn]; if(!body) return;
+    var btn=document.createElement('button'); btn.type='button'; btn.className='more';
+    btn.innerHTML='<span class="mtx">Read the full story</span><span class="cx">&#9662;</span>';
+    var panel=document.createElement('div'); panel.className='full'; panel.innerHTML='<h4>The full story</h4>'+body;
+    foot.parentNode.insertBefore(btn, foot);
+    foot.parentNode.insertBefore(panel, foot);
+    btn.addEventListener('click', function(){
+      var open=panel.classList.toggle('open'); btn.classList.toggle('open', open);
+      btn.querySelector('.mtx').textContent = open ? 'Hide the full story' : 'Read the full story';
+      if(open){ track('expand',{card:i}); }
+    });
+  });
 
   // deep-link: open on a specific card if URL ends in #N
   (function(){ var h=parseInt((location.hash||'').replace('#',''),10);
