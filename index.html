@@ -180,10 +180,11 @@
 
   /* cover table-of-contents mini-cards */
   .tocgrid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:18px; }
-  .tocx{ display:flex; align-items:center; gap:9px; padding:10px 11px; background:var(--panel); border:1.5px solid var(--ink); cursor:pointer; text-align:left; transition:background .15s ease, transform .1s ease; }
-  .tocx:hover{ background:var(--gold); } .tocx:active{ transform:translateY(1px); }
-  .tocx .rn{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:700; color:var(--gold-ink); flex-shrink:0; min-width:16px; text-align:left; }
-  .tocx:hover .rn{ color:var(--ink); }
+  .tocx{ display:flex; align-items:center; gap:11px; padding:9px 11px; background:var(--panel); border:2px solid var(--ink); box-shadow:3px 3px 0 rgba(28,28,28,0.16); cursor:pointer; text-align:left; transition:transform .12s ease, box-shadow .12s ease, background .15s ease; }
+  .tocx:hover{ background:var(--gold); transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(28,28,28,0.26); }
+  .tocx:active{ transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(28,28,28,0.16); }
+  .tocx .rn{ flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; color:var(--paper); background:var(--ink); box-shadow:2px 2px 0 var(--gold); }
+  .tocx:hover .rn{ background:var(--paper); color:var(--ink); box-shadow:2px 2px 0 var(--ink); }
   .tocx .rl{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink); line-height:1.25; }
   @media (prefers-reduced-motion: reduce){ .go .ga,.go:before,.tocx{ animation:none; transition:none; } }
 
@@ -647,7 +648,7 @@
   }
 
   // cover table-of-contents mini-cards -> jump to that section
-  var TOC=[['I','The Big Six',1],['II','Startup of the Week',7],['III','New Rulebooks',8],['IV','Editor’s Analysis',11],['V','Human Stories',12],['VI','Frontier',16],['VII','Watch & Listen',17],['VIII','By the Numbers',19]];
+  var TOC=[['01','The Big Six',1],['02','Startup of the Week',7],['03','New Rulebooks',8],['04','Editor’s Analysis',11],['05','Human Stories',12],['06','Frontier',16],['07','Watch & Listen',17],['08','By the Numbers',19]];
   var tg=document.getElementById('tocgrid');
   if(tg){ TOC.forEach(function(t){ var d=document.createElement('button'); d.type='button'; d.className='tocx';
     d.innerHTML='<span class="rn">'+t[0]+'</span><span class="rl">'+t[1]+'</span>';
