@@ -211,6 +211,37 @@
   .pickhead:before{ content:""; width:13px; height:13px; background:var(--gold); border:2px solid var(--ink); flex-shrink:0; }
   @media (prefers-reduced-motion: reduce){ .tchip{ transition:none; } }
 
+  /* settings gear + panel */
+  .cover .card{ position:relative; }
+  .gear{ position:absolute; top:14px; right:14px; z-index:6; width:36px; height:36px; border:2px solid var(--ink); background:var(--paper); color:var(--ink); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:2px 2px 0 rgba(28,28,28,0.16); padding:0; }
+  .gear svg{ width:18px; height:18px; }
+  .gear:active{ transform:translate(1px,1px); }
+  .settings{ position:fixed; inset:0; z-index:20; background:rgba(28,24,16,0.55); display:flex; align-items:flex-end; justify-content:center; }
+  .settings[hidden]{ display:none; }
+  .set-inner{ width:100%; max-width:520px; max-height:92dvh; background:var(--cream); border:2px solid var(--ink); border-bottom:0; box-shadow:0 -6px 24px rgba(28,24,16,0.3); display:flex; flex-direction:column; overflow:hidden; }
+  .set-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:2px solid var(--ink); background:var(--panel); }
+  .set-title{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink); }
+  .set-x{ width:30px; height:30px; border:2px solid var(--ink); background:var(--paper); font-size:13px; cursor:pointer; }
+  .set-body{ padding:16px 18px calc(22px + env(safe-area-inset-bottom)); overflow-y:auto; }
+  .set-intro{ font-size:13px; line-height:1.55; color:var(--body); margin:0 0 16px; }
+  .set-sec{ margin-bottom:20px; }
+  .set-lbl{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink); }
+  .set-sub{ font-size:11.5px; color:var(--muted); margin:3px 0 9px; }
+  .tonebtns{ display:flex; flex-wrap:wrap; gap:7px; }
+  .tbn{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink); background:var(--paper); border:2px solid var(--ink); padding:8px 11px; cursor:pointer; box-shadow:2px 2px 0 rgba(28,28,28,0.14); }
+  .tbn.on{ background:var(--ink); color:var(--paper); }
+  .set-prompt{ width:100%; font-family:'IBM Plex Mono',monospace; font-size:12px; line-height:1.5; color:var(--ink); background:var(--paper); border:2px solid var(--ink); padding:11px 12px; resize:vertical; }
+  .srclist{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+  .srcx{ display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; color:var(--ink); background:var(--paper); border:1.5px solid var(--ink); padding:6px 9px; }
+  .srcx b{ cursor:pointer; color:#C04B3C; font-weight:800; }
+  .srcadd{ display:flex; gap:8px; }
+  .srcadd input{ flex:1; min-width:0; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink); background:var(--paper); border:2px solid var(--ink); padding:9px 11px; }
+  .srcadd button{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; text-transform:uppercase; color:var(--paper); background:var(--ink); border:2px solid var(--ink); padding:0 14px; cursor:pointer; }
+  .set-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+  .set-save{ flex:1; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); background:var(--gold); border:2px solid var(--ink); padding:13px; cursor:pointer; box-shadow:3px 3px 0 rgba(28,28,28,0.18); }
+  .set-copy,.set-reset{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; text-transform:uppercase; color:var(--ink); background:var(--paper); border:2px solid var(--ink); padding:0 14px; cursor:pointer; }
+  .set-saved{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:#4A5C28; margin-top:10px; min-height:14px; text-align:center; }
+
   .close .kick{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:12px; }
   .close .lw{ font-family:'IBM Plex Serif',serif; font-size:17px; line-height:1.6; color:var(--ink); margin-bottom:8px; }
   .close .lw b{ color:var(--gold-ink); font-weight:600; }
@@ -270,6 +301,9 @@
 
   <!-- COVER -->
   <section class="slide cover"><div class="wrap"><div class="card">
+    <button class="gear" id="gear" type="button" aria-label="Settings — edit sources, prompt & tone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H2a2 2 0 110-4h.09A1.65 1.65 0 004.6 8a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V2a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H22a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    </button>
     <div class="mast">
       <div class="eye">The Monthly AI Briefing</div>
       <div class="word">AI&nbsp;<b>PULSE</b></div>
@@ -613,6 +647,47 @@
   <button class="nav next" id="navN" type="button" aria-label="Next card"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
 </div>
 <div class="dots" id="dots"></div>
+<!-- SETTINGS PANEL -->
+<div class="settings" id="settings" hidden>
+  <div class="set-inner">
+    <div class="set-head">
+      <span class="set-title">Settings</span>
+      <button class="set-x" id="setX" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="set-body">
+      <p class="set-intro">Tune how the briefing is curated. Edits save on this device and feed the AI&nbsp;Pulse pipeline when it regenerates.</p>
+
+      <div class="set-sec">
+        <div class="set-lbl">Tone</div>
+        <div class="set-sub">Pick a voice, or edit the prompt below.</div>
+        <div class="tonebtns" id="tonebtns"></div>
+      </div>
+
+      <div class="set-sec">
+        <div class="set-lbl">Curation prompt</div>
+        <div class="set-sub">The editorial standard used to choose &amp; write every story.</div>
+        <textarea class="set-prompt" id="setPrompt" rows="13" spellcheck="false"></textarea>
+      </div>
+
+      <div class="set-sec">
+        <div class="set-lbl">Sources</div>
+        <div class="set-sub">Where stories are pulled from. Add or remove any.</div>
+        <div class="srclist" id="srclist"></div>
+        <div class="srcadd">
+          <input id="srcInput" type="text" placeholder="Add a source — e.g. The Information" />
+          <button id="srcAdd" type="button">Add</button>
+        </div>
+      </div>
+
+      <div class="set-actions">
+        <button class="set-save" id="setSave" type="button">Save settings</button>
+        <button class="set-copy" id="setCopy" type="button">Copy config</button>
+        <button class="set-reset" id="setReset" type="button">Reset</button>
+      </div>
+      <div class="set-saved" id="setSaved"></div>
+    </div>
+  </div>
+</div>
 </div><!-- /ps-content -->
 </div><!-- /data-surface ps -->
 
@@ -836,6 +911,42 @@
     try { var u=new URL(a.href); u.searchParams.set('utm_source','aipulse'); u.searchParams.set('utm_medium','cards'); u.searchParams.set('utm_campaign','june2026'); a.href=u.toString(); } catch(e){}
     a.addEventListener('click', function(){ track('link_click', {card:idx()}); });
   });
+
+  // ===================== SETTINGS PANEL =====================
+  var DEFAULT_PROMPT =
+    "You are the editor of AI Pulse, a monthly AI-intelligence briefing for busy executives and decision-makers.\n\n"+
+    "VOICE: Axios-style — smart, brief, plain English. No hype, no jargon, no emoji. Every story earns its place; lead with the point.\n\n"+
+    "SELECTION: Pick only the moves that genuinely mattered across policy & power, markets & money, practical use-cases, startups & builders, upskilling, and the frontier. Prefer specific, verifiable facts (numbers, names, dates) over vibes.\n\n"+
+    "PER STORY: a sharp headline; a 2–3 sentence standfirst carrying the key number; one 'big catch' takeaway; one 'why it matters' line. Bold the single load-bearing number; highlight the turning phrase.\n\n"+
+    "TONE: Executive and on-point — serious, credible, trustworthy. Simple for a non-technical reader; never dumbed-down.\n\n"+
+    "GEOGRAPHY: add a Gulf/UAE angle only when it is real, never forced.";
+  var TONES=[
+    ['executive','Executive','Executive and on-point — serious, credible, trustworthy. Simple for a non-technical reader; never dumbed-down.'],
+    ['punchy','Punchy','Short and punchy — tight sentences, strong verbs, get to the point fast.'],
+    ['fun','More fun','Lively and fun — a light, witty touch and vivid analogies, still accurate and never silly.'],
+    ['technical','Technical','More technical — assume a savvy reader; include mechanisms, model names and hard specifics.'],
+    ['analytical','Analytical','Analytical and deep — emphasise the why, second-order effects, and what to watch next.']
+  ];
+  var DEFAULT_SOURCES=['CNBC','Bloomberg','Data Center Dynamics','OpenAI','Anthropic','NVIDIA','Digital India','European Commission','Brookings','Axios','Smart Cities World','The Rundown AI','Import AI','ChinAI','The Batch'];
+  var cfg={ prompt:DEFAULT_PROMPT, tone:'executive', sources:DEFAULT_SOURCES.slice() };
+  try{ var _s=localStorage.getItem('aipulse_cfg'); if(_s){ cfg=Object.assign(cfg, JSON.parse(_s)); } }catch(e){}
+  var elPrompt=document.getElementById('setPrompt'), elTones=document.getElementById('tonebtns'), elSrc=document.getElementById('srclist'), elSaved=document.getElementById('setSaved');
+  function setToneLine(line){ elPrompt.value = elPrompt.value.replace(/TONE:[^\n]*/, 'TONE: '+line); }
+  function renderTones(){ elTones.innerHTML=''; TONES.forEach(function(t){ var btn=document.createElement('button'); btn.type='button'; btn.className='tbn'+(cfg.tone===t[0]?' on':''); btn.textContent=t[1];
+    btn.addEventListener('click', function(){ cfg.tone=t[0]; [].forEach.call(elTones.children,function(x){x.classList.remove('on');}); btn.classList.add('on'); setToneLine(t[2]); }); elTones.appendChild(btn); }); }
+  function renderSources(){ elSrc.innerHTML=''; cfg.sources.forEach(function(s,i){ var chip=document.createElement('span'); chip.className='srcx'; var nm=document.createElement('span'); nm.textContent=s; var x=document.createElement('b'); x.textContent='✕'; x.title='Remove';
+    x.addEventListener('click', function(){ cfg.sources.splice(i,1); renderSources(); }); chip.appendChild(nm); chip.appendChild(x); elSrc.appendChild(chip); }); }
+  function loadUI(){ elPrompt.value=cfg.prompt; renderTones(); renderSources(); }
+  if(elPrompt){ loadUI();
+    document.getElementById('gear').addEventListener('click', function(){ document.getElementById('settings').hidden=false; track('settings_open',{}); });
+    document.getElementById('setX').addEventListener('click', function(){ document.getElementById('settings').hidden=true; });
+    document.getElementById('settings').addEventListener('click', function(e){ if(e.target===this) this.hidden=true; });
+    document.getElementById('srcAdd').addEventListener('click', function(){ var inp=document.getElementById('srcInput'); var v=inp.value.trim(); if(v){ cfg.sources.push(v); inp.value=''; renderSources(); } });
+    document.getElementById('srcInput').addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); document.getElementById('srcAdd').click(); } });
+    document.getElementById('setSave').addEventListener('click', function(){ cfg.prompt=elPrompt.value; try{ localStorage.setItem('aipulse_cfg', JSON.stringify(cfg)); elSaved.textContent='Saved on this device ✓'; }catch(e){ elSaved.textContent='Could not save locally'; } setTimeout(function(){elSaved.textContent='';},2600); track('settings_save',{tone:cfg.tone,sources:cfg.sources.length}); });
+    document.getElementById('setCopy').addEventListener('click', function(){ cfg.prompt=elPrompt.value; var text=JSON.stringify(cfg,null,2); try{ navigator.clipboard.writeText(text); elSaved.textContent='Config copied to clipboard ✓'; }catch(e){ elSaved.textContent='Copy not supported here'; } setTimeout(function(){elSaved.textContent='';},2600); });
+    document.getElementById('setReset').addEventListener('click', function(){ cfg={ prompt:DEFAULT_PROMPT, tone:'executive', sources:DEFAULT_SOURCES.slice() }; loadUI(); try{localStorage.removeItem('aipulse_cfg');}catch(e){} elSaved.textContent='Reset to default'; setTimeout(function(){elSaved.textContent='';},2200); });
+  }
 
   applyFilter();
 </script>
