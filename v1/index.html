@@ -127,14 +127,15 @@
   .why .lab{ color:var(--ink); }
   .why .t{ font-size:15px; line-height:1.5; color:var(--body); }
 
-  /* read source button */
-  .read{ display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:0.06em;
-    text-transform:uppercase; color:var(--gold-tt); text-decoration:none; border:2px solid var(--gold); padding:11px 16px; }
-  .read:before{ content:"Read \2192\00A0\00A0"; color:var(--ink); }
-  .read.alt{ margin-left:8px; }
-  .read.alt:before{ content:"Watch \2192\00A0\00A0"; }
+  /* minimal source link — publication name, sits with the content */
+  .read{ display:inline-flex; align-items:center; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.03em;
+    text-transform:uppercase; color:var(--gold-tt); text-decoration:none; border:0; padding:0; border-bottom:1.5px solid var(--gold); line-height:1.5; }
+  .read:after{ content:"\00A0\2197"; color:var(--gold-tt); }
+  .read:hover{ color:var(--ink); border-bottom-color:var(--ink); }
+  .read.alt:before{ content:"\25B6\00A0"; color:var(--gold-tt); }
 
-  .reads{ display:flex; flex-wrap:wrap; gap:9px; }
+  .reads{ display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+  .srcline{ margin:2px 0 16px; }
 
   /* editor's-analysis policy rows */
   .pol{ border:2px solid var(--ink); padding:4px 14px; margin-bottom:16px; background:var(--cream); }
@@ -693,6 +694,17 @@
       btn.querySelector('.mtx').textContent = open ? 'Hide the full story' : 'Read the full story';
       if(open){ track('expand',{card:i}); }
     });
+  });
+
+  // move the source link up next to the story (minimal, right under the standfirst)
+  content.forEach(function(slide){
+    var card=slide.querySelector('.card'); if(!card) return;
+    var dek=card.querySelector('.dek'); if(!dek) return;
+    var reads=card.querySelector('.reads');
+    if(reads){ reads.classList.add('srcline'); dek.insertAdjacentElement('afterend', reads); return; }
+    var links=card.querySelectorAll('.read');
+    if(links.length){ var w=document.createElement('div'); w.className='reads srcline';
+      [].forEach.call(links, function(a){ w.appendChild(a); }); dek.insertAdjacentElement('afterend', w); }
   });
 
   // deep-link: open on a specific card if URL ends in #N
