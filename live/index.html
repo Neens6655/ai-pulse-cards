@@ -85,6 +85,9 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 .aplay.playing .ic{ margin-left:0; width:11px; height:13px; border:0; border-left:4px solid #1C1C1C; border-right:4px solid #1C1C1C; }
 .aplay.loading .ic{ width:15px; height:15px; margin:0; border:2.5px solid rgba(28,28,28,0.25); border-top-color:#1C1C1C; border-radius:50%; animation:aspin .65s linear infinite; }
 @keyframes aspin{ to{ transform:rotate(360deg); } }
+.aplay.mini{ width:32px; height:32px; }
+.aplay.mini .ic{ border-width:6px 0 6px 10px; margin-left:2px; }
+.aplay.mini.playing .ic{ width:9px; height:11px; border:0; border-left:3px solid #1C1C1C; border-right:3px solid #1C1C1C; margin:0; }
 .ainfo{ display:flex; flex-direction:column; gap:1px; } .atitle{ font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); } .asub{ font-size:10.5px; color:var(--muted); }
 .close .kick{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:12px; }
 .close .lw{ font-family:'IBM Plex Serif',serif; font-size:17px; line-height:1.6; color:var(--ink); } .close .lw b{ color:var(--gold-ink); }
@@ -118,7 +121,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="pickhead">Pick your topics</div>
     <div class="topicgrid" id="topicgrid"></div>
     <a class="go" id="genbtn" href="#"><span class="gt">Generate my briefing</span><span class="ga">→</span></a>
-    
+    <div class="abar" id="fullbar"><button class="aplay" type="button" aria-label="Play the briefing"><span class="ic"></span></button><div class="ainfo"><span class="atitle">▶ Listen to the briefing</span><span class="asub">14 stories, one continuous listen</span></div></div>
     <div class="foot"><span class="brand">AI PULSE · ISSUE 3</span></div>
   </div></div></section>
 
@@ -304,7 +307,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 </div>
 <div class="dots" id="dots"></div>
 </div></div>
-
+<audio id="ap" preload="none"></audio>
 <script>
   var TOPICS = [["policymakers","Policymakers & Governance",3],["uae_adoptable","Adoptable in the UAE",2],["risks","Tangible Risks",1],["emerging_tech_research","Emerging Tech & Research",3],["startups","Cool Startups",3],["firm_usecases","How Firms Use AI",2]];
   var deck=document.getElementById('deck'), slides=deck.querySelectorAll('.slide');
@@ -333,9 +336,23 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     content.forEach(function(s){ var tops=(s.getAttribute('data-topic')||'').split(' '); s.style.display=(!any||tops.some(function(x){return selected[x];}))?'':'none'; }); rebuild(); }
   var gen=document.getElementById('genbtn'); if(gen)gen.addEventListener('click',function(e){ e.preventDefault(); applyFilter(); goto(1); });
 
-  // full briefing (single edition audio)
+  // audio: per-card clips (audio/NN.mp3) + a full-briefing playlist, or a single edition file
   var ap=document.getElementById('ap'), fb=document.getElementById('fullbar');
-  if(ap&&fb){ var fbtn=fb.querySelector('.aplay');
+  var WITH_AUDIO=true, AUD='audio/';
+  function nn2(i){ return (i<9?'0':'')+(i+1); }
+  function resetPlay(){ [].forEach.call(document.querySelectorAll('.aplay.playing,.aplay.loading'),function(x){x.classList.remove('playing');x.classList.remove('loading');}); }
+  if(WITH_AUDIO && ap){
+    var pl=[], pli=0, plOn=false;
+    function playClip(src,btn){ if(!ap.paused && ap.currentSrc.indexOf(src)>-1){ ap.pause(); return; } plOn=false; resetPlay(); btn.classList.add('loading'); ap.src=src; ap.play().then(function(){btn.classList.remove('loading');btn.classList.add('playing');}).catch(function(){btn.classList.remove('loading');}); }
+    function buildPl(){ pl=[]; content.forEach(function(s,i){ if(s.style.display!=='none') pl.push(nn2(i)); }); }
+    function playFrom(i){ if(i>=pl.length){ plOn=false; resetPlay(); return; } pli=i; ap.src=AUD+pl[i]+'.mp3'; ap.play().then(function(){ if(fb)fb.querySelector('.aplay').classList.add('playing'); }).catch(function(){}); }
+    ap.addEventListener('ended',function(){ if(plOn) playFrom(pli+1); else resetPlay(); });
+    content.forEach(function(s,i){ var top=s.querySelector('.top'); if(!top)return;
+      var b=document.createElement('button'); b.type='button'; b.className='aplay mini'; b.setAttribute('aria-label','Play brief'); b.innerHTML='<span class="ic"></span>';
+      b.addEventListener('click',function(){ playClip(AUD+nn2(i)+'.mp3', b); }); top.appendChild(b); });
+    if(fb){ var fbt=fb.querySelector('.aplay');
+      fbt.addEventListener('click',function(){ if(plOn && !ap.paused){ ap.pause(); fbt.classList.remove('playing'); return; } if(plOn && ap.paused){ ap.play(); fbt.classList.add('playing'); return; } resetPlay(); buildPl(); if(!pl.length)return; plOn=true; fbt.classList.add('loading'); pli=0; ap.src=AUD+pl[0]+'.mp3'; ap.play().then(function(){fbt.classList.remove('loading');fbt.classList.add('playing');}).catch(function(){fbt.classList.remove('loading');}); }); }
+  } else if(ap&&fb){ var fbtn=fb.querySelector('.aplay');
     fbtn.addEventListener('click',function(){ if(!ap.paused){ap.pause();fbtn.classList.remove('playing');return;} fbtn.classList.add('loading'); ap.play().then(function(){fbtn.classList.remove('loading');fbtn.classList.add('playing');}).catch(function(){fbtn.classList.remove('loading');}); });
     ap.addEventListener('ended',function(){fbtn.classList.remove('playing');}); }
 
