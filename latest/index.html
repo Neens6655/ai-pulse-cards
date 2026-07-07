@@ -257,6 +257,9 @@
     background:var(--hub-bg); border-top:1px solid var(--hub-bg-deep); }
   .dot{ width:7px; height:7px; border:1.5px solid var(--gold-ink); background:transparent; padding:0; cursor:pointer; transition:background .2s ease; }
   .dot.on{ background:var(--gold-ink); }
+  .dot.home{ width:auto; height:auto; border:0; background:none; padding:0 4px 0 0; display:flex; align-items:center; transition:none; }
+  .dot.home svg{ width:16px; height:16px; stroke:var(--gold-ink); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .dot.home.on svg{ stroke:var(--ink); }
 
   /* small prev/next arrows pinned to the CARD's left & right edges (matches card width at any screen) */
   .navwrap{ position:fixed; top:0; bottom:calc(46px + env(safe-area-inset-bottom)); left:16px; right:16px; margin-left:auto; margin-right:auto; max-width:480px; z-index:8; pointer-events:none; }
@@ -700,7 +703,7 @@
   var navP=document.getElementById('navP'), navN=document.getElementById('navN');
   var bars=[], dotEls=[], count=0;
   function idx(){ return Math.round(deck.scrollLeft / window.innerWidth); }
-  function paint(){ var a=idx(); for (var i=0;i<count;i++){ if(bars[i]) bars[i].className='bar'+(i<=a?' done':''); if(dotEls[i]) dotEls[i].className='dot'+(i===a?' on':''); }
+  function paint(){ var a=idx(); for (var i=0;i<count;i++){ if(bars[i]) bars[i].className='bar'+(i<=a?' done':''); if(dotEls[i]) dotEls[i].className='dot'+(i===0?' home':'')+(i===a?' on':''); }
     if(navP) navP.hidden = a<=0; if(navN) navN.hidden = a>=count-1; }
   function goto(k){ k=Math.max(0,Math.min(count-1,k)); deck.scrollTo({left:k*window.innerWidth, behavior:'smooth'}); }
   function rebuild(){
@@ -709,6 +712,7 @@
     for (var i=0;i<count;i++){
       var b=document.createElement('div'); b.className='bar'; hud.appendChild(b); bars.push(b);
       var d=document.createElement('button'); d.className='dot'; d.setAttribute('aria-label','Card '+(i+1));
+      if(i===0){ d.className='dot home'; d.setAttribute('aria-label','Home'); d.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v9h5v-6h4v6h5v-9"/></svg>'; }
       (function(k){ d.addEventListener('click', function(){ goto(k); }); })(i);
       dots.appendChild(d); dotEls.push(d);
     }
