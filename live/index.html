@@ -96,6 +96,9 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 .bar{ flex:1; height:3px; background:var(--hair); } .bar.done{ background:var(--gold-ink); }
 .dots{ position:fixed; left:0; right:0; bottom:0; z-index:9; height:calc(46px + env(safe-area-inset-bottom)); display:flex; justify-content:center; align-items:center; gap:6px; padding:0 20px env(safe-area-inset-bottom); background:var(--hub-bg); border-top:1px solid var(--hub-bg-deep); }
 .dot{ width:7px; height:7px; border:1.5px solid var(--gold-ink); background:transparent; padding:0; cursor:pointer; } .dot.on{ background:var(--gold-ink); }
+.dot.home{ width:auto; height:auto; border:0; background:none; padding:0 4px 0 0; display:flex; align-items:center; }
+.dot.home svg{ width:16px; height:16px; stroke:var(--gold-ink); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.dot.home.on svg{ stroke:var(--ink); }
 .navwrap{ position:fixed; top:0; bottom:calc(46px + env(safe-area-inset-bottom)); left:16px; right:16px; margin-left:auto; margin-right:auto; max-width:480px; z-index:8; pointer-events:none; }
 .nav{ position:absolute; top:50%; width:30px; height:30px; border-radius:50%; border:1.5px solid var(--gold-ink); background:rgba(255,253,247,0.82); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; pointer-events:auto; }
 .nav svg{ width:13px; height:13px; stroke:var(--gold-ink); fill:none; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; }
@@ -435,11 +438,11 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
   var navP=document.getElementById('navP'), navN=document.getElementById('navN');
   var bars=[], dotEls=[], count=0;
   function idx(){ return Math.round(deck.scrollLeft/window.innerWidth); }
-  function paint(){ var a=idx(); for(var i=0;i<count;i++){ if(bars[i])bars[i].className='bar'+(i<=a?' done':''); if(dotEls[i])dotEls[i].className='dot'+(i===a?' on':''); } if(navP)navP.hidden=a<=0; if(navN)navN.hidden=a>=count-1; }
+  function paint(){ var a=idx(); for(var i=0;i<count;i++){ if(bars[i])bars[i].className='bar'+(i<=a?' done':''); if(dotEls[i])dotEls[i].className='dot'+(i===0?' home':'')+(i===a?' on':''); } if(navP)navP.hidden=a<=0; if(navN)navN.hidden=a>=count-1; }
   function goto(k){ k=Math.max(0,Math.min(count-1,k)); deck.scrollTo({left:k*window.innerWidth,behavior:'smooth'}); }
   function rebuild(){ count=[].filter.call(slides,function(s){return s.style.display!=='none';}).length; hud.innerHTML=''; dots.innerHTML=''; bars=[]; dotEls=[];
     for(var i=0;i<count;i++){ var b=document.createElement('div'); b.className='bar'; hud.appendChild(b); bars.push(b);
-      var d=document.createElement('button'); d.className='dot'; (function(k){d.addEventListener('click',function(){goto(k);});})(i); dots.appendChild(d); dotEls.push(d); } paint(); }
+      var d=document.createElement('button'); d.className='dot'; if(i===0){ d.className='dot home'; d.setAttribute('aria-label','Home'); d.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v9h5v-6h4v6h5v-9"/></svg>'; } (function(k){d.addEventListener('click',function(){goto(k);});})(i); dots.appendChild(d); dotEls.push(d); } paint(); }
   deck.addEventListener('scroll',function(){ window.requestAnimationFrame(paint); },{passive:true});
   document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')goto(idx()+1); if(e.key==='ArrowLeft')goto(idx()-1); });
   if(navP)navP.addEventListener('click',function(){goto(idx()-1);}); if(navN)navN.addEventListener('click',function(){goto(idx()+1);});
