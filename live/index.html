@@ -62,6 +62,10 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 .foot{ display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:12px; border-top:1px solid var(--hair); }
 .brand{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:0.14em; color:var(--muted); }
 .cover .card,.close .card{ background:var(--paper); }
+.cover .card{ position:relative; }
+.gear{ position:absolute; top:14px; right:14px; z-index:6; width:36px; height:36px; border:2px solid var(--ink); background:var(--paper); color:var(--ink); display:flex; align-items:center; justify-content:center; box-shadow:2px 2px 0 rgba(28,28,28,0.16); text-decoration:none; }
+.gear svg{ width:18px; height:18px; }
+.gear:active{ transform:translate(1px,1px); }
 .mast{ background:var(--panel); background-image:repeating-linear-gradient(90deg,rgba(201,168,76,0.22) 0 1px,transparent 1px 30px),repeating-linear-gradient(0deg,rgba(201,168,76,0.20) 0 1px,transparent 1px 30px); border:2px solid var(--ink); padding:34px 24px 30px; text-align:center; }
 .mast .eye{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:14px; }
 .mast .word{ font-family:'IBM Plex Serif',serif; font-size:62px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); line-height:0.95; } .mast .word b{ color:var(--gold-ink); }
@@ -115,6 +119,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 <div class="deck" id="deck">
 
   <section class="slide cover"><div class="wrap"><div class="card">
+    <a class="gear" href="https://ai-pulse-neens6655-3939s-projects.vercel.app" target="_blank" rel="noopener" aria-label="Admin — edit sources, prompt & curation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 008 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H2a2 2 0 110-4h.09A1.65 1.65 0 004.6 8a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V2a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H22a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></a>
     <div class="mast">
       <div class="eye">The Monthly AI Briefing</div>
       <div class="word">AI&nbsp;<b>PULSE</b></div>
@@ -128,7 +133,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE · ISSUE 4</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="policymakers"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="policymakers must"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Policymakers &amp; Governance</span><span class="count mono">01 / 24</span></div>
     <img class="hero" src="https://assets.carnegieendowment.org/_/eyJrZXkiOiJtZWRpYS9leUpyWlhraU9pSnBiV0ZuWlhNdlFXZGxiblJwWXlCQlNTQkJiblJvY205d2FXTWdZbTkwSUMwZ01qSTJORGM0TXpZd055NXFjR2NpZlE9PS53ZWJwIn0=" alt="When AI Agents Attack: Autonomous Cyber Operations and Europe’s Governance Gap | Carnegie Endowment for International Peace" />
     <h2 class="h">When AI Agents Attack: Autonomous Cyber Operations and Europe’s Governance Gap</h2>
@@ -140,7 +145,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="emerging_tech_research"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="emerging_tech_research must"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Emerging Tech &amp; Research</span><span class="count mono">02 / 24</span></div>
     <img class="hero" src="https://charonhub.deeplearning.ai/content/images/2026/07/GPT5.6.webp" alt="OpenAI Previewed Three GPT-5.6 Models (Sol, Terra, and Luna), Wider Release Coming Soon" />
     <h2 class="h">OpenAI Previewed Three GPT-5.6 Models (Sol, Terra, and Luna), Wider Release Coming Soon</h2>
@@ -152,7 +157,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="policymakers"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="policymakers must"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Policymakers &amp; Governance</span><span class="count mono">03 / 24</span></div>
     <img class="hero" src="https://www.economist.com/content-assets/images/20260704_LDD003.jpg" alt="America should not imprison frontier AI" />
     <h2 class="h">America should not imprison frontier AI</h2>
@@ -164,7 +169,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="policymakers"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="policymakers must"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Policymakers &amp; Governance</span><span class="count mono">04 / 24</span></div>
     <img class="hero" src="https://www.brookings.edu/wp-content/uploads/2026/06/GettyImages-2281424163-1.jpg?quality=75" alt="G7 should accept AI standards offer, but make it enforceable | Brookings" />
     <h2 class="h">G7 should accept AI standards offer, but make it enforceable</h2>
@@ -176,7 +181,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="policymakers"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="policymakers must"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Policymakers &amp; Governance</span><span class="count mono">05 / 24</span></div>
     <div class="hero band"><span class="bw">Policymakers &amp; Governance</span></div>
     <h2 class="h">Government interventions temporarily blocked access to Claude Fable and GPT-5.6</h2>
@@ -188,7 +193,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="policymakers"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="policymakers must"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Policymakers &amp; Governance</span><span class="count mono">06 / 24</span></div>
     <img class="hero" src="https://cset.georgetown.edu/wp-content/uploads/CSET-NEWS-SEMICONDUCTOR-IMAGE-2-700x906.webp" alt="Trump administration’s AI crackdown opens door for China to close gap | Center for Security and Emerging Technology" />
     <h2 class="h">Trump administration’s AI crackdown opens door for China to close gap</h2>
@@ -432,7 +437,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 </div></div>
 <audio id="ap" preload="none"></audio>
 <script>
-  var TOPICS = [["policymakers","Policymakers & Governance",8],["uae_adoptable","Adoptable in the UAE",1],["risks","Tangible Risks",3],["emerging_tech_research","Emerging Tech & Research",8],["firm_usecases","How Firms Use AI",4]];
+  var TOPICS = [["must","Must-Read Stories",6],["policymakers","Policymakers & Governance",8],["uae_adoptable","Adoptable in the UAE",1],["risks","Tangible Risks",3],["emerging_tech_research","Emerging Tech & Research",8],["firm_usecases","How Firms Use AI",4]];
   var deck=document.getElementById('deck'), slides=deck.querySelectorAll('.slide');
   var hud=document.getElementById('hud'), dots=document.getElementById('dots');
   var navP=document.getElementById('navP'), navN=document.getElementById('navN');
