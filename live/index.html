@@ -475,7 +475,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
   var selected={}; TOPICS.forEach(function(t){selected[t[0]]=true;});
   var tg=document.getElementById('topicgrid');
   if(tg){ TOPICS.forEach(function(t){ var b=document.createElement('button'); b.type='button'; b.className='tchip sel'; b.setAttribute('data-t',t[0]);
-    b.innerHTML='<span class="tk"></span><span><span class="tl">'+t[1]+'</span><span class="tn">'+t[2]+' cards</span></span>';
+    b.innerHTML='<span class="tk"></span><span><span class="tl">'+t[1]+'</span><span class="tn">'+t[2]+(t[2]===1?' card':' cards')+'</span></span>';
     b.addEventListener('click',function(){ selected[t[0]]=!selected[t[0]]; b.classList.toggle('sel',selected[t[0]]); }); tg.appendChild(b); }); }
   function applyFilter(){ var any=Object.keys(selected).some(function(k){return selected[k];});
     content.forEach(function(s){ var tops=(s.getAttribute('data-topic')||'').split(' ');
