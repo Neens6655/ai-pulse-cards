@@ -60,6 +60,21 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 .full{ display:none; margin-top:14px; padding:15px 15px 4px; background:var(--paper); border:2px solid var(--hair); border-top:3px solid var(--gold); }
 .full.open{ display:block; } .full h4{ font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-tt); margin-bottom:11px; }
 .full p{ font-size:15.5px; line-height:1.7; color:var(--body); margin-bottom:13px; }
+/* reader feedback — like / dislike. Votes steer the next issue. */
+.vote{ display:flex; align-items:center; gap:8px; margin-top:16px; }
+.vbtn{ display:inline-flex; align-items:center; justify-content:center; width:46px; height:38px; padding:0; background:var(--paper); border:2px solid var(--ink); color:var(--ink); cursor:pointer; transition:background .15s ease, transform .12s ease, color .15s ease; }
+.vbtn svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+.vbtn:active{ transform:scale(.93); }
+.vbtn.up.on{ background:var(--gold); color:var(--ink); }
+.vbtn.down:hover{ background:#F0E6E6; }
+.vlab{ margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+/* dislike -> the card swipes off screen, then the slide is removed from the deck */
+.slide.gone .card{ animation:swipeout .42s cubic-bezier(.32,.72,0,1) forwards; }
+@keyframes swipeout{ to{ transform:translateX(-130%) rotate(-7deg); opacity:0; } }
+@media (prefers-reduced-motion: reduce){
+  .slide.gone .card{ animation:none; opacity:0; }
+  .vbtn{ transition:none; } .vbtn:active{ transform:none; }
+}
 .foot{ display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:12px; border-top:1px solid var(--hair); }
 .brand{ font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:0.14em; color:var(--muted); }
 .cover .card,.close .card{ background:var(--paper); }
@@ -134,9 +149,9 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE · ISSUE 9</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="uae_adoptable must"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="uae_adoptable must" data-url="https://www.thenationalnews.com/news/uae/2026/07/02/sheikh-hamdan-announces-digital-replica-of-dubai-to-help-with-emergency-planning/" data-aid="23469c7a-1069-4b05-aab7-1a63ab98497b" data-k="thenationalnews.com::sheikh hamdan announces digital replica of dubai to help with emergency planning" data-b="uae_adoptable" data-s="The National (UAE)" data-h="Sheikh Hamdan announces digital replica of Dubai to help with emergency planning"><div class="wrap"><div class="card">
     <div class="top"><span class="chip must">&#9733; Must-Read</span><span class="count mono">01 / 24</span></div>
-    <img class="hero" src="img/01.webp" alt="Sheikh Hamdan announces digital replica of Dubai to help with emergency planning | The National" loading="lazy" decoding="async" />
+    <img class="hero" src="https://www.thenationalnews.com/resizer/v2/5WAIMKMSBJFOXIO43EQET6YKTE.jpg?smart=true&amp;auth=d3a6f148432709b03f57cd7e47cf7c6441dcc868d57d4f426594d05fa117638b&amp;width=1200&amp;height=630" alt="Sheikh Hamdan announces digital replica of Dubai to help with emergency planning | The National" loading="lazy" decoding="async" />
     <h2 class="h">Sheikh Hamdan announces digital replica of Dubai to help with emergency planning</h2>
     <p class="dek">Dubai's Crown Prince Sheikh Hamdan has announced a full-scale digital twin of the city — a live 3D replica that planners and emergency teams can use to simulate crises, stress-test infrastructure, and coordinate services before problems hit the real city. The project brings together AI-enabled simulation, city-wide data, and government planning into a single operating layer. <mark>Dubai now has a virtual copy of itself to rehearse the future in</mark> — a capability most global cities are still years away from deploying at this scale.</p>
     <a class="read" href="https://www.thenationalnews.com/news/uae/2026/07/02/sheikh-hamdan-announces-digital-replica-of-dubai-to-help-with-emergency-planning/" target="_blank" rel="noopener">The National (UAE)</a>
@@ -146,7 +161,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="startups must"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="startups must" data-url="https://tldr.tech/ai/2026-07-06" data-aid="9058633f-84e3-4a65-a430-585d237fd80c" data-k="tldr.tech::openai preparing gpt 5 6 release with reasoning tiers and ultra mode" data-b="startups" data-s="via TLDR AI" data-h="OpenAI preparing GPT-5.6 release with reasoning tiers and ultra mode"><div class="wrap"><div class="card">
     <div class="top"><span class="chip must">&#9733; Must-Read</span><span class="count mono">02 / 24</span></div>
     <img class="hero" src="img/02.webp" alt="OpenAI preparing GPT-5.6 release with reasoning tiers and ultra mode" loading="lazy" decoding="async" />
     <h2 class="h">OpenAI preparing GPT-5.6 release with reasoning tiers and ultra mode</h2>
@@ -158,7 +173,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="firm_usecases must"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="firm_usecases must" data-url="https://www.theneurondaily.com/p/cloudflare-draws-an-ai-bot-line" data-aid="cdb6e2b4-3dda-4abe-b160-2521acf6c69b" data-k="theneurondaily.com::zoom acquires common room to add ai sales agent capabilities" data-b="firm_usecases" data-s="via The Neuron" data-h="Zoom acquires Common Room to add AI sales agent capabilities"><div class="wrap"><div class="card">
     <div class="top"><span class="chip must">&#9733; Must-Read</span><span class="count mono">03 / 24</span></div>
     <img class="hero" src="img/03.webp" alt="Zoom acquires Common Room to add AI sales agent capabilities" loading="lazy" decoding="async" />
     <h2 class="h">Zoom acquires Common Room to add AI sales agent capabilities</h2>
@@ -170,7 +185,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="emerging_tech_research must"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="emerging_tech_research must" data-url="https://www.deeplearning.ai/the-batch/gpt-5-6-lands-in-limbo" data-aid="790ec924-e0c2-441d-a6a3-2661f5373a61" data-k="deeplearning.ai::openai previewed three gpt 5 6 models sol terra and luna wider release coming so" data-b="emerging_tech_research" data-s="The Batch (Andrew Ng)" data-h="OpenAI Previewed Three GPT-5.6 Models (Sol, Terra, and Luna), Wider Release Coming Soon"><div class="wrap"><div class="card">
     <div class="top"><span class="chip must">&#9733; Must-Read</span><span class="count mono">04 / 24</span></div>
     <img class="hero" src="https://charonhub.deeplearning.ai/content/images/2026/07/GPT5.6.webp" alt="OpenAI Previewed Three GPT-5.6 Models (Sol, Terra, and Luna), Wider Release Coming Soon" loading="lazy" decoding="async" />
     <h2 class="h">OpenAI Previewed Three GPT-5.6 Models (Sol, Terra, and Luna), Wider Release Coming Soon</h2>
@@ -182,7 +197,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="tools must"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="tools must" data-url="https://magazine.sebastianraschka.com/p/using-local-coding-agents" data-aid="1d2302ea-9358-4886-bc48-c3413271357c" data-k="magazine.sebastianraschka.com::qwen code" data-b="tools" data-s="via Ahead of AI (Sebastian Raschka)" data-h="Qwen-Code"><div class="wrap"><div class="card">
     <div class="top"><span class="chip must">&#9733; Must-Read</span><span class="count mono">05 / 24</span></div>
     <img class="hero" src="img/05.webp" alt="Qwen-Code" loading="lazy" decoding="async" />
     <h2 class="h">Qwen-Code</h2>
@@ -194,7 +209,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="risks must"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="risks must" data-url="https://www.theneurondaily.com/p/anthropic-found-claude-s-hidden-workspace" data-aid="c6ef2728-d6a1-4d18-abbe-299e2cebed9d" data-k="theneurondaily.com::jadepuffer becomes first known agentic ransomware case" data-b="risks" data-s="via The Neuron" data-h="JADEPUFFER becomes first known agentic ransomware case"><div class="wrap"><div class="card">
     <div class="top"><span class="chip must">&#9733; Must-Read</span><span class="count mono">06 / 24</span></div>
     <img class="hero" src="img/06.webp" alt="JADEPUFFER becomes first known agentic ransomware case" loading="lazy" decoding="async" />
     <h2 class="h">JADEPUFFER becomes first known agentic ransomware case</h2>
@@ -206,7 +221,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="uae_adoptable"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="uae_adoptable" data-url="https://www.thenationalnews.com/news/uae/2026/07/01/sheikh-mansour-reviews-uaes-use-of-agentic-ai/" data-aid="20f09de2-ef00-4ff5-9c41-16cb23bf3b68" data-k="thenationalnews.com::sheikh mansour reviews uae s use of agentic ai the national" data-b="uae_adoptable" data-s="The National (UAE)" data-h="Sheikh Mansour reviews UAE's use of agentic AI"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">For the UAE</span><span class="count mono">07 / 24</span></div>
     <img class="hero" src="img/07.webp" alt="Sheikh Mansour reviews UAE's use of agentic AI  | The National" loading="lazy" decoding="async" />
     <h2 class="h">Sheikh Mansour reviews UAE's use of agentic AI</h2>
@@ -218,7 +233,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="startups"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="startups" data-url="https://www.theneurondaily.com/p/anthropic-found-claude-s-hidden-workspace" data-aid="09cbf596-4a3f-4583-8d57-21eb980ab46e" data-k="theneurondaily.com::even realities raises 150m at 1b valuation for camera free smart glasses" data-b="startups" data-s="via The Neuron" data-h="Even Realities raises $150M at $1B valuation for camera-free smart glasses"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Startups &amp; Builders</span><span class="count mono">08 / 24</span></div>
     <img class="hero" src="img/08.webp" alt="Even Realities raises $150M at $1B valuation for camera-free smart glasses" loading="lazy" decoding="async" />
     <h2 class="h">Even Realities raises $150M at $1B valuation for camera-free smart glasses</h2>
@@ -230,7 +245,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="firm_usecases"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="firm_usecases" data-url="https://www.theneurondaily.com/p/cloudflare-draws-an-ai-bot-line" data-aid="857b93e9-4156-4e7b-a58d-344e4b1257f8" data-k="theneurondaily.com::microsoft merging consumer and enterprise copilot chatbots into one app" data-b="firm_usecases" data-s="via The Neuron" data-h="Microsoft merging consumer and enterprise Copilot chatbots into one app"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Real-World AI</span><span class="count mono">09 / 24</span></div>
     <img class="hero" src="img/09.webp" alt="Microsoft merging consumer and enterprise Copilot chatbots into one app" loading="lazy" decoding="async" />
     <h2 class="h">Microsoft merging consumer and enterprise Copilot chatbots into one app</h2>
@@ -242,7 +257,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="emerging_tech_research"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="emerging_tech_research" data-url="https://openai.com/index/previewing-gpt-5-6-sol" data-aid="93dad8f2-8f0a-462d-85a3-c40894878dec" data-k="openai.com::previewing gpt 5 6 sol a next generation model openai" data-b="emerging_tech_research" data-s="OpenAI News" data-h="Previewing GPT-5.6 Sol: a next-generation model"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">The Frontier</span><span class="count mono">10 / 24</span></div>
     <img class="hero" src="img/10.webp" alt="Previewing GPT-5.6 Sol: a next-generation model | OpenAI" loading="lazy" decoding="async" />
     <h2 class="h">Previewing GPT-5.6 Sol: a next-generation model</h2>
@@ -254,7 +269,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="tools"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="tools" data-url="https://www.theneurondaily.com/p/cloudflare-draws-an-ai-bot-line" data-aid="a2acc358-24b9-4bcd-b20d-4d7880340efa" data-k="theneurondaily.com::cloudflare ai crawler controls" data-b="tools" data-s="via The Neuron" data-h="Cloudflare AI Crawler Controls"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">AI Toolbox</span><span class="count mono">11 / 24</span></div>
     <img class="hero" src="img/11.webp" alt="Cloudflare AI Crawler Controls" loading="lazy" decoding="async" />
     <h2 class="h">Cloudflare AI Crawler Controls</h2>
@@ -266,7 +281,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="risks"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="risks" data-url="https://www.exponentialview.co/p/ev-591" data-aid="af5eaea2-75c7-4b6e-9ebd-2750ba8e0e8b" data-k="exponentialview.co::medical training faces never skilling risk as trainees over rely on ai" data-b="risks" data-s="via Exponential View (Azeem Azhar)" data-h="Medical training faces 'never skilling' risk as trainees over-rely on AI"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Reality Checks</span><span class="count mono">12 / 24</span></div>
     <img class="hero" src="img/12.webp" alt="Medical training faces 'never skilling' risk as trainees over-rely on AI" loading="lazy" decoding="async" />
     <h2 class="h">Medical training faces 'never skilling' risk as trainees over-rely on AI</h2>
@@ -278,7 +293,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="uae_adoptable"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="uae_adoptable" data-url="https://www.thenationalnews.com/business/markets/2026/07/01/abu-dhabis-ai-investment-firm-mgx-raises-49bn-for-new-fund/" data-aid="aa3f0a84-3048-4f32-b942-37259f9bfd71" data-k="thenationalnews.com::abu dhabi s ai investment firm mgx raises 49bn for new fund the national" data-b="uae_adoptable" data-s="The National (UAE)" data-h="Abu Dhabi's AI investment firm MGX raises $49bn for new fund"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">For the UAE</span><span class="count mono">13 / 24</span></div>
     <img class="hero" src="https://www.thenationalnews.com/resizer/v2/AT6YLXG7HNGOXJ7ZCBXJP7RWVE.jpg?smart=true&amp;auth=84fbf798e97fd0a898f098d288958e2c846b6ffbb01a1d5f5ac31fc7d78484e0&amp;width=1200&amp;height=630" alt="Abu Dhabi's AI investment firm MGX raises $49bn for new fund | The National" loading="lazy" decoding="async" />
     <h2 class="h">Abu Dhabi's AI investment firm MGX raises $49bn for new fund</h2>
@@ -290,7 +305,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="startups"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="startups" data-url="https://www.theneurondaily.com/p/cloudflare-draws-an-ai-bot-line" data-aid="984bb034-6b43-4d23-bc33-0d4b38d6db7a" data-k="theneurondaily.com::kling ai raises 2b as kuaishou spins off its video ai unit" data-b="startups" data-s="via The Neuron" data-h="Kling AI raises $2B as Kuaishou spins off its video AI unit"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Startups &amp; Builders</span><span class="count mono">14 / 24</span></div>
     <img class="hero" src="img/14.webp" alt="Kling AI raises $2B as Kuaishou spins off its video AI unit" loading="lazy" decoding="async" />
     <h2 class="h">Kling AI raises $2B as Kuaishou spins off its video AI unit</h2>
@@ -302,7 +317,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="firm_usecases"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="firm_usecases" data-url="https://www.oneusefulthing.org/p/the-twilight-of-the-chatbots" data-aid="e6319f8d-8189-4ee6-87fb-6fb18f7ea57f" data-k="oneusefulthing.org::openai internal study shows rapid shift from chatbot use to autonomous ai agents" data-b="firm_usecases" data-s="via One Useful Thing (Ethan Mollick)" data-h="OpenAI internal study shows rapid shift from chatbot use to autonomous AI agents across all departments"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Real-World AI</span><span class="count mono">15 / 24</span></div>
     <img class="hero" src="img/15.webp" alt="OpenAI internal study shows rapid shift from chatbot use to autonomous AI agents across all departments" loading="lazy" decoding="async" />
     <h2 class="h">OpenAI internal study shows rapid shift from chatbot use to autonomous AI agents across all departments</h2>
@@ -314,7 +329,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="emerging_tech_research"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="emerging_tech_research" data-url="https://www.theneurondaily.com/p/anthropic-found-claude-s-hidden-workspace" data-aid="3793f908-8f91-40bd-a5df-d91748c3e3ca" data-k="theneurondaily.com::anthropic discovers claude s internal reasoning workspace called j space" data-b="emerging_tech_research" data-s="via The Neuron" data-h="Anthropic discovers Claude's internal reasoning workspace called J-space"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">The Frontier</span><span class="count mono">16 / 24</span></div>
     <img class="hero" src="img/16.webp" alt="Anthropic discovers Claude's internal reasoning workspace called J-space" loading="lazy" decoding="async" />
     <h2 class="h">Anthropic discovers Claude's internal reasoning workspace called J-space</h2>
@@ -326,7 +341,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="tools"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="tools" data-url="https://tldr.tech/ai/2026-07-06" data-aid="3ce3846a-b050-4f26-919d-79fd2de23f94" data-k="tldr.tech::qwen" data-b="tools" data-s="via TLDR AI" data-h="Qwen"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">AI Toolbox</span><span class="count mono">17 / 24</span></div>
     <img class="hero" src="img/17.webp" alt="Qwen" loading="lazy" decoding="async" />
     <h2 class="h">Qwen</h2>
@@ -338,7 +353,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="risks"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="risks" data-url="https://www.theneurondaily.com/p/anthropic-found-claude-s-hidden-workspace" data-aid="ad7ecd2c-7419-4f7d-8e30-96fd14a851cc" data-k="theneurondaily.com::voters turning to ai chatbots for electoral guidance on who to vote for" data-b="risks" data-s="via The Neuron" data-h="Voters turning to AI chatbots for electoral guidance on who to vote for"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Reality Checks</span><span class="count mono">18 / 24</span></div>
     <img class="hero" src="img/18.webp" alt="Voters turning to AI chatbots for electoral guidance on who to vote for" loading="lazy" decoding="async" />
     <h2 class="h">Voters turning to AI chatbots for electoral guidance on who to vote for</h2>
@@ -350,7 +365,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="uae_adoptable"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="uae_adoptable" data-url="https://www.thenationalnews.com/future/technology/2026/07/06/g42-and-microsoft-deepen-partnership-to-keep-sensitive-ai-data-inside-the-uae/" data-aid="ce65de01-01fb-446a-a068-9822b16671a6" data-k="thenationalnews.com::g42 and microsoft deepen partnership to keep sensitive ai data inside the uae th" data-b="uae_adoptable" data-s="The National (UAE)" data-h="G42 and Microsoft deepen partnership to keep sensitive AI data inside the UAE"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">For the UAE</span><span class="count mono">19 / 24</span></div>
     <img class="hero" src="img/19.webp" alt="G42 and Microsoft deepen partnership to keep sensitive AI data inside the UAE | The National" loading="lazy" decoding="async" />
     <h2 class="h">G42 and Microsoft deepen partnership to keep sensitive AI data inside the UAE</h2>
@@ -362,7 +377,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="startups"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="startups" data-url="https://tldr.tech/ai/2026-07-07" data-aid="9f2528ab-5527-466c-8454-b77e800fc45d" data-k="tldr.tech::xai rebrands to spacexai deepening integration with elon musk s space ventures" data-b="startups" data-s="via TLDR AI" data-h="xAI Rebrands to SpaceXAI, Deepening Integration with Elon Musk's Space Ventures"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Startups &amp; Builders</span><span class="count mono">20 / 24</span></div>
     <img class="hero" src="img/20.webp" alt="xAI Rebrands to SpaceXAI, Deepening Integration with Elon Musk's Space Ventures" loading="lazy" decoding="async" />
     <h2 class="h">xAI Rebrands to SpaceXAI, Deepening Integration with Elon Musk's Space Ventures</h2>
@@ -374,7 +389,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="firm_usecases"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="firm_usecases" data-url="https://www.theneurondaily.com/p/anthropic-found-claude-s-hidden-workspace" data-aid="b509c072-4227-4278-88c6-77ef2a7a3667" data-k="theneurondaily.com::alibaba reportedly bans claude code internally" data-b="firm_usecases" data-s="via The Neuron" data-h="Alibaba reportedly bans Claude Code internally"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Real-World AI</span><span class="count mono">21 / 24</span></div>
     <img class="hero" src="img/21.webp" alt="Alibaba reportedly bans Claude Code internally" loading="lazy" decoding="async" />
     <h2 class="h">Alibaba reportedly bans Claude Code internally</h2>
@@ -386,7 +401,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="emerging_tech_research"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="emerging_tech_research" data-url="https://tldr.tech/ai/2026-07-07" data-aid="f4f554ed-5d01-4d83-ad96-1166c23ac668" data-k="tldr.tech::replit develops vibench and telescope for continual agent learning without weigh" data-b="emerging_tech_research" data-s="via TLDR AI" data-h="Replit Develops ViBench and Telescope for Continual Agent Learning Without Weight Updates"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">The Frontier</span><span class="count mono">22 / 24</span></div>
     <img class="hero" src="img/22.webp" alt="Replit Develops ViBench and Telescope for Continual Agent Learning Without Weight Updates" loading="lazy" decoding="async" />
     <h2 class="h">Replit Develops ViBench and Telescope for Continual Agent Learning Without Weight Updates</h2>
@@ -398,7 +413,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="tools"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="tools" data-url="https://tldr.tech/ai/2026-07-06" data-aid="0ca024f7-b27f-4a13-b97c-e802edb9f170" data-k="tldr.tech::open source ai gap map" data-b="tools" data-s="via TLDR AI" data-h="Open Source AI Gap Map"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">AI Toolbox</span><span class="count mono">23 / 24</span></div>
     <img class="hero" src="img/23.webp" alt="Open Source AI Gap Map" loading="lazy" decoding="async" />
     <h2 class="h">Open Source AI Gap Map</h2>
@@ -410,7 +425,7 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     <div class="foot"><span class="brand">AI PULSE</span></div>
   </div></div></section>
 
-  <section class="slide" data-topic="risks"><div class="wrap"><div class="card">
+  <section class="slide" data-topic="risks" data-url="https://www.theneurondaily.com/p/cloudflare-draws-an-ai-bot-line" data-aid="214dc033-fc60-4b27-9fb5-db0e308d2386" data-k="theneurondaily.com::anthropic emails reveal friction with pentagon over ai guardrails and military u" data-b="risks" data-s="via The Neuron" data-h="Anthropic emails reveal friction with Pentagon over AI guardrails and military use"><div class="wrap"><div class="card">
     <div class="top"><span class="chip">Reality Checks</span><span class="count mono">24 / 24</span></div>
     <img class="hero" src="img/24.webp" alt="Anthropic emails reveal friction with Pentagon over AI guardrails and military use" loading="lazy" decoding="async" />
     <h2 class="h">Anthropic emails reveal friction with Pentagon over AI guardrails and military use</h2>
@@ -455,6 +470,22 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
   window.addEventListener('resize',paint);
   var content=[].filter.call(slides,function(s){return !s.classList.contains('cover')&&!s.classList.contains('close');});
 
+  // ---- reader feedback: votes persist locally AND post to the engine, which uses them
+  // to pick + write the next issue. A failed POST is queued, never dropped.
+  var FB_URL="https://ai-pulse-neens6655-3939s-projects.vercel.app/api/feedback", EDITION_ID="aeca440c-caef-4b94-9c99-c3e9d56e8519";
+  var VKEY='aip_votes_v1', QKEY='aip_queue_v1';
+  function loadJSON(k,d){ try{ return JSON.parse(localStorage.getItem(k))||d; }catch(e){ return d; } }
+  function saveJSON(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+  var votes=loadJSON(VKEY,{}), queue=loadJSON(QKEY,[]);
+  function sendVote(p){ if(!FB_URL) return;
+    fetch(FB_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p),keepalive:true})
+      .then(function(r){ if(!r.ok) throw new Error('http '+r.status); })
+      .catch(function(err){ console.warn('vote queued (send failed):',err&&err.message); queue.push(p); saveJSON(QKEY,queue); }); }
+  function flushQueue(){ if(!FB_URL||!queue.length) return; var pending=queue.slice(); queue=[]; saveJSON(QKEY,queue); pending.forEach(sendVote); }
+  function payload(s,vote){ return { vote:vote, url:s.getAttribute('data-url'), articleId:s.getAttribute('data-aid'), editionId:EDITION_ID,
+      headline:s.getAttribute('data-h'), bucket:s.getAttribute('data-b'), sourceName:s.getAttribute('data-s'), dedupKey:s.getAttribute('data-k') }; }
+  function isGone(s){ return votes[s.getAttribute('data-url')||'']==='dislike'; }
+
   // topic picker
   var selected={}; TOPICS.forEach(function(t){selected[t[0]]=true;});
   var tg=document.getElementById('topicgrid');
@@ -462,7 +493,9 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
     b.innerHTML='<span class="tk"></span><span><span class="tl">'+t[1]+'</span><span class="tn">'+t[2]+' cards</span></span>';
     b.addEventListener('click',function(){ selected[t[0]]=!selected[t[0]]; b.classList.toggle('sel',selected[t[0]]); }); tg.appendChild(b); }); }
   function applyFilter(){ var any=Object.keys(selected).some(function(k){return selected[k];});
-    content.forEach(function(s){ var tops=(s.getAttribute('data-topic')||'').split(' '); s.style.display=(!any||tops.some(function(x){return selected[x];}))?'':'none'; }); rebuild(); }
+    content.forEach(function(s){ var tops=(s.getAttribute('data-topic')||'').split(' ');
+      var show=!isGone(s)&&(!any||tops.some(function(x){return selected[x];}));
+      s.style.display=show?'':'none'; }); rebuild(); }
   var gen=document.getElementById('genbtn'); if(gen)gen.addEventListener('click',function(e){ e.preventDefault(); applyFilter(); goto(1); });
 
   // audio: per-card clips (audio/NN.mp3) + a full-briefing playlist, or a single edition file
@@ -494,6 +527,36 @@ mark{ background:#FBEFA8; padding:0 2px; color:inherit; }
 
   // minimal source link -> under the standfirst
   content.forEach(function(s){ var card=s.querySelector('.card'); var dek=card.querySelector('.dek'); var a=card.querySelector('.read'); if(dek&&a){ var w=document.createElement('div'); w.className='reads srcline'; w.appendChild(a); dek.insertAdjacentElement('afterend',w); } });
+
+  // like / dislike on every card. Like = more of this. Dislike = the card swipes away
+  // and that story (and its kind) is down-weighted in the next issue.
+  var REDUCED=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var UP='<svg viewBox="0 0 24 24"><path d="M7 22V10l5-8 1.2 1.2a2.5 2.5 0 0 1 .6 2.4L13 9h5.2a2.3 2.3 0 0 1 2.2 2.9l-1.7 7A2.3 2.3 0 0 1 16.5 22H7z"/><path d="M7 10H4v12h3"/></svg>';
+  var DOWN='<svg viewBox="0 0 24 24"><path d="M17 2v12l-5 8-1.2-1.2a2.5 2.5 0 0 1-.6-2.4L11 15H5.8a2.3 2.3 0 0 1-2.2-2.9l1.7-7A2.3 2.3 0 0 1 7.5 2H17z"/><path d="M17 14h3V2h-3"/></svg>';
+  content.forEach(function(s){
+    var card=s.querySelector('.card'); if(!card) return;
+    var url=s.getAttribute('data-url')||'';
+    var row=document.createElement('div'); row.className='vote';
+    var up=document.createElement('button'); up.type='button'; up.className='vbtn up'; up.setAttribute('aria-label','More stories like this'); up.innerHTML=UP;
+    var dn=document.createElement('button'); dn.type='button'; dn.className='vbtn down'; dn.setAttribute('aria-label','Fewer stories like this — remove this card'); dn.innerHTML=DOWN;
+    var lab=document.createElement('span'); lab.className='vlab'; lab.textContent='Tune my feed';
+    if(votes[url]==='like') up.classList.add('on');
+    up.addEventListener('click',function(){ var on=up.classList.toggle('on');
+      if(on){ votes[url]='like'; sendVote(payload(s,'like')); } else { delete votes[url]; }
+      saveJSON(VKEY,votes); });
+    dn.addEventListener('click',function(){
+      votes[url]='dislike'; saveJSON(VKEY,votes); sendVote(payload(s,'dislike'));
+      var done=false; function remove(){ if(done)return; done=true; applyFilter(); }
+      if(REDUCED){ remove(); return; }
+      s.classList.add('gone');
+      card.addEventListener('animationend',remove,{once:true});
+      setTimeout(remove,600); // safety net if animationend never fires
+    });
+    row.appendChild(up); row.appendChild(dn); row.appendChild(lab);
+    var foot=card.querySelector('.foot');
+    if(foot) card.insertBefore(row,foot); else card.appendChild(row);
+  });
+  flushQueue();
 
   applyFilter();
 </script>
